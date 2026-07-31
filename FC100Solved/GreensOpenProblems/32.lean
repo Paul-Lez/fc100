@@ -47,7 +47,10 @@ theorem hasGap_zero {p : ℕ} (A : Finset (ZMod p)) :
 @[category test, AMS 5 11]
 theorem hasGap_empty {p : ℕ} (L : ℕ) :
     HasGap (∅ : Finset (ZMod p)) L := by
-  sorry
+  -- Agent proof
+  refine ⟨0, ?_⟩
+  intro i hi
+  simp
 
 /-- The full set in $\mathbb{Z}/p\mathbb{Z}$ has no gap of positive length. -/
 @[category test, AMS 5 11]

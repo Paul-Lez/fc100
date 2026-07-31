@@ -41,7 +41,8 @@ def HasPrimeRepresentation (n : ℕ) : Prop :=
 
 @[category test, AMS 11]
 theorem hasPrimeRepresentation_2 : HasPrimeRepresentation 2 := by
-  sorry
+  -- Agent proof
+  refine ⟨1, 1, by norm_num, by norm_num, by norm_num, by norm_num, by norm_num⟩
 
 @[category test, AMS 11]
 theorem hasPrimeRepresentation_5 : HasPrimeRepresentation 5 :=

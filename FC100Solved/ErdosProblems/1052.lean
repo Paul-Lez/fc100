@@ -56,7 +56,9 @@ theorem isUnitaryPerfect_6 : IsUnitaryPerfect 6 := by
 
 @[category test, AMS 11]
 theorem isUnitaryPerfect_60 : IsUnitaryPerfect 60 := by
-  sorry
+  -- Agent proof
+  norm_num [IsUnitaryPerfect, properUnitaryDivisors]
+  decide +kernel
 
 @[category test, AMS 11]
 theorem isUnitaryPerfect_90 : IsUnitaryPerfect 90 := by

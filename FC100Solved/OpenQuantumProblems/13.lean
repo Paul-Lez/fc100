@@ -209,7 +209,9 @@ collects the scalar factor as $\overline{a} a$. -/
 @[category API, AMS 5 15 81 94]
 lemma star_smul_mul_smul (a : ℂ) (A B : Matrix (Fin 2) (Fin 2) ℂ) :
     star (a • A) * (a • B) = (star a * a) • (star A * B) := by
-  sorry
+  -- Agent proof
+  ext i j
+  simp [Matrix.mul_apply, Fin.sum_univ_two] <;> ring
 
 /-- The relative product of two phase matrices has the expected $2 \times 2$ form. -/
 @[category API, AMS 5 15 81 94]

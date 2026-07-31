@@ -73,7 +73,58 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hprod h
+  have hxmod : x ^ 4 % 8 = 0 ∨ x ^ 4 % 8 = 1 := by
+    have hxlt : x % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    interval_cases hx : x % 8 <;> norm_num [Nat.pow_mod, hx]
+  have hymod : y ^ 4 % 8 = 0 ∨ y ^ 4 % 8 = 1 := by
+    have hylt : y % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    interval_cases hy : y % 8 <;> norm_num [Nat.pow_mod, hy]
+  have hnot : ¬ (x ^ 4 % 8 = 0 ∧ y ^ 4 % 8 = 0) := by
+    rintro ⟨hx, hy⟩
+    have hx8 : 8 ∣ x ^ 4 := (Nat.dvd_iff_mod_eq_zero).2 hx
+    have hy8 : 8 ∣ y ^ 4 := (Nat.dvd_iff_mod_eq_zero).2 hy
+    have hx2 : 2 ∣ x ^ 4 := dvd_trans (by norm_num) hx8
+    have hy2 : 2 ∣ y ^ 4 := dvd_trans (by norm_num) hy8
+    have hxdvd : 2 ∣ x := (by norm_num : Nat.Prime 2).dvd_of_dvd_pow hx2
+    have hydvd : 2 ∣ y := (by norm_num : Nat.Prime 2).dvd_of_dvd_pow hy2
+    have htwo : 2 ∣ Nat.gcd x y := Nat.dvd_gcd hxdvd hydvd
+    have hgcd : Nat.gcd x y = 1 := hcop
+    norm_num [hgcd] at htwo
+  have hnlt : n < 4 := by
+    by_contra hnlt
+    have hn4 : 4 ≤ n := by omega
+    have hfac : 8 ∣ n ! := dvd_trans (by norm_num) (Nat.factorial_dvd_factorial hn4)
+    have hmod : n ! % 8 = (x ^ 4 + y ^ 4) % 8 := congrArg (fun z : ℕ => z % 8) h
+    have hzero : n ! % 8 = 0 := Nat.mod_eq_zero_of_dvd hfac
+    rw [hzero] at hmod
+    rcases hxmod with hx | hx
+    · rcases hymod with hy | hy
+      · exact (hnot ⟨hx, hy⟩).elim
+      · norm_num [Nat.add_mod, hx, hy] at hmod
+    · rcases hymod with hy | hy
+      · norm_num [Nat.add_mod, hx, hy] at hmod
+      · norm_num [Nat.add_mod, hx, hy] at hmod
+  interval_cases n <;> norm_num at h
+  all_goals
+    have hxle : x ≤ 1 := by
+      by_contra hxle
+      have hx2 : 2 ≤ x := by omega
+      have hx16 : 16 ≤ x ^ 4 := by
+        calc
+          16 = 2 ^ 4 := by norm_num
+          _ ≤ x ^ 4 := by gcongr
+      omega
+    have hyle : y ≤ 1 := by
+      by_contra hyle
+      have hy2 : 2 ≤ y := by omega
+      have hy16 : 16 ≤ y ^ 4 := by
+        calc
+          16 = 2 ^ 4 := by norm_num
+          _ ≤ y ^ 4 := by gcongr
+      omega
+    interval_cases x <;> interval_cases y <;> norm_num at hprod
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if

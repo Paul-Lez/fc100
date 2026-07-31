@@ -51,7 +51,9 @@ theorem congruentNumber_6 : congruentNumber 6 := by
 
 @[category test, AMS 11]
 theorem congruentNumber_7 : congruentNumber 7 := by
-  sorry
+  -- Agent proof
+  use 35 / 12, 24 / 5, 337 / 60
+  norm_num
 
 /- Zagier's example -/
 @[category test, AMS 11]
