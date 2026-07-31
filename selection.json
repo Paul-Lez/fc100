@@ -1,0 +1,1239 @@
+{
+  "package": "FC100",
+  "modules": [
+    {
+      "id": "fc100solved",
+      "lean_name": "FC100Solved",
+      "benchmark_set": "FC100SolvedSet1"
+    },
+    {
+      "id": "fc100open",
+      "lean_name": "FC100Open",
+      "benchmark_set": "FC100OpenSet1"
+    }
+  ],
+  "formal_conjectures": {
+    "remote": "https://github.com/google-deepmind/formal-conjectures.git",
+    "commit": "7a41db3d761324599812d6ca6cb6a9f311046dc7"
+  },
+  "declarations": [
+    "OeisA308734.conjecture",
+    "Buchi.buchi_problem",
+    "Erdos200.erdos_200",
+    "Green31.green_31.variants.upper_eventually",
+    "Equidistribution.isAccumulationPoint_three_halves_pow",
+    "Koethe.KotherConjecture.variants.matrixOver_KotherRadical",
+    "Erdos535.erdos_535.variants.first_open_case",
+    "LychrelNumbers.no_lychrel_numbers_base10",
+    "Erdos830.erdos_830.parts.ii",
+    "Erdos125.erdos_125.variants.positive_unequal_density",
+    "Erdos1113.erdos_1113.variants.filaseta_finch_kozek",
+    "Erdos539.erdos_539.variants.isBigO_sq",
+    "RiemannZetaValues.irrational_five",
+    "Erdos1074.erdos_1074.parts.ii",
+    "Erdos282.erdos_282.variants.general",
+    "PellNumbers.infinite_pellNumber_primes",
+    "ClassNumberProblem.class_number_problem",
+    "Grimm.grimm_conjecture_weak",
+    "OeisA63880.mod_216_of_a",
+    "Green24.green_24",
+    "Erdos12.erdos_12.parts.iii",
+    "Erdos288.erdos_288.variants.exists_k_gt_2",
+    "EllipticCurveRank.RatEllipticCurve.twentyone_le_rank_height_count_asymptotic",
+    "Erdos647.erdos_647.variants.lim",
+    "Selfridge.selfridge_conjecture",
+    "Erdos887.erdos_887.parts.i",
+    "Erdos340.erdos_340.variants.co_density_zero_sub",
+    "Erdos694.erdos_694.variants.carmichael",
+    "Mathoverflow1973.mathoverflow_1973",
+    "Erdos479.erdos_479",
+    "OeisA67720.prime_add_one_of_a",
+    "Erdos1092.f_asymptotic_general",
+    "Erdos1074.erdos_1074.parts.iv",
+    "Green9.green_9_iii",
+    "Erdos770.erdos_770.variants.three",
+    "Erdos137.erdos_137.variants.multiple_powerful_factors",
+    "Irrational.irrational_e_to_e",
+    "Erdos324.erdos_324",
+    "Erdos329.erdos_329",
+    "Transcendental.pi_pow_pi_pow_pi_transcendental",
+    "Erdos409.erdos_409.parts.i.isBigO",
+    "Arxiv.«2501.03234».conjecture_4_1",
+    "MonochromaticQuantumGraph.eqSystem10_no_solution_d3",
+    "PoincareConjecture.poincare_conjecture.variants.smooth_dimension_four",
+    "Transcendental.pi_pow_sqrt_two_transcendental",
+    "OeisA303656.conjecture",
+    "Erdos517.erdos_517",
+    "MonochromaticQuantumGraph.eqSystem16_no_solution_d3",
+    "Arxiv.«0912.2382».curling_number_conjecture",
+    "Grimm.grimm_conjecture",
+    "Erdos272.erdos_272.variants.szabo_strong",
+    "UnionClosed.union_closed.variants.cardinality_even_of_union_closed_tight",
+    "MonochromaticQuantumGraph.eqSystem12_no_solution_d3",
+    "Erdos1097.erdos_1097",
+    "MonochromaticQuantumGraph.eqSystem_no_solution_ge6_ge3_real",
+    "Erdos952.erdos_952",
+    "Green58.green_58",
+    "Erdos329.erdos_329.variants.converse_implication",
+    "Mandelbrot.MLC",
+    "Erdos890.erdos_890.parts.a",
+    "Erdos1002.erdos_1002",
+    "Erdos188.erdos_188",
+    "BabaiSeressConjectures.babai_seress_conjecture_alternating",
+    "OpenQuantumProblem23.hasSICPOVM_60",
+    "Erdos23.erdos_23",
+    "Gilbreath.gilbreath_conjecture",
+    "Erdos313.erdos_313",
+    "Green14.W_3_39_lower",
+    "Erdos931.erdos_931.variants.exists_prime",
+    "Erdos398.erdos_398",
+    "Erdos61.erdos_61",
+    "Erdos996.erdos_996",
+    "Erdos695.erdos_695",
+    "MonochromaticQuantumGraph.eqSystem10_no_solution_d3_trinary_int",
+    "Erdos92.erdos_92.variants.weak",
+    "RamseyNumbers.ramsey_number_five_five",
+    "Erdos385.erdos_385.parts.ii",
+    "LittlewoodConjecture.padic_littlewood_conjecture",
+    "Mandelbrot.volume_frontier_mandelbrotSet_eq_zero",
+    "Erdos358.erdos_358.variants.prime_set",
+    "OeisA80170.gcdCondition_iff_primePowerCondition",
+    "Erdos332.erdos_332",
+    "Green14.W_3_37_lower",
+    "EulerBrick.cuboidThree",
+    "Erdos269.erdos_269.variants.rational",
+    "Arxiv.«1601.03081».crystals_components_unique",
+    "Erdos123.erdos_123.variants.powers_2_3_5_snug",
+    "SumOfThreeCubes.isSumOfThreeCubes_iff_mod_9",
+    "WrittenOnTheWallII.GraphConjecture327.conjecture327",
+    "WrittenOnTheWallII.GraphConjecture316.conjecture316",
+    "Erdos888.erdos_888",
+    "Erdos260.erdos_260",
+    "Erdos36.erdos_36.variants.lower",
+    "MonochromaticQuantumGraph.eqSystem10_no_solution_d4",
+    "Superperfect.twoFivePerfect",
+    "Erdos307.erdos_307",
+    "MonochromaticQuantumGraph.eqSystem6_no_solution_d4",
+    "OeisA41.noPowerPartitionNumber",
+    "Erdos1093.erdos_1093.parts.ii",
+    "Green61.green_61",
+    "WrittenOnTheWallII.Test.petersen_size",
+    "WrittenOnTheWallII.GraphConjecture13.conjecture13",
+    "OpenQuantumProblem35.ame_3_exists",
+    "LychrelNumbers.eventually_palindrome_base10",
+    "Erdos42.example_maximal_sidon",
+    "Mathoverflow75792.Reachable.complexity",
+    "OeisA280831.hasSquareCondition_0",
+    "Erdos141.first_three_odd_primes",
+    "WrittenOnTheWallII.GraphConjecture33.conjecture33",
+    "MonochromaticQuantumGraph.eqSystem4_has_solution_d2",
+    "OeisA228828.a_two",
+    "Erdos399.erdos_399.variants.cambie",
+    "Erdos349.exists_t_for_k_disjoint_segments",
+    "Erdos686.erdos_686.variants.four_three",
+    "OpenQuantumProblem23.hasConstantOverlapSq_singleton",
+    "WrittenOnTheWallII.Test.house_radius",
+    "Erdos678.lcmInterval_lt_example3",
+    "Gourevitch.gourevitch_series_identity",
+    "WrittenOnTheWallII.GraphConjecture16.conjecture16",
+    "Erdos12.erdos_12.variants.erdos_sarkozy",
+    "Mahler32.mahler_conjecture.variants.consequence",
+    "DegreeSequencesTriangleFree.lemma2_d",
+    "Kaplansky.UnitConjecture.counterexamples.ii",
+    "Erdos697.erdos_697.parts.i",
+    "Erdos61.erdos_61.variants.bnss23",
+    "Erdos968.erdos_968.variants.sum_abs_diff_isTheta_log_sq",
+    "RamanujanTau.ramanujan_petersson",
+    "Green14.green_14_quadratic",
+    "Erdos1063.erdos_1063.variants.cambie_upper_bound",
+    "WrittenOnTheWallII.Test.petersen_residue",
+    "Erdos697.density_exists",
+    "Green14.W_3_15",
+    "OpenQuantumProblem35.ame_2_exists",
+    "Erdos392.erdos_392.variants.implication",
+    "Erdos886.erdos_886.variants.rosenfeld_infinite",
+    "OpenQuantumProblem23.qubitSICFamily_pairwise",
+    "Erdos835.johnsonGraph_18_9_chromaticNumber",
+    "OeisA56777.a_65",
+    "Erdos41.erdos_41.variants.pairwise",
+    "OeisA232174.hasPrimeRepresentation_2",
+    "Erdos350.distinctSubsetSums_1_2",
+    "Arxiv.«2602.05192».finiteAdditiveConvolution_monic'",
+    "Erdos295.erdos_295.variants.erdos_straus",
+    "Erdos36.M_four",
+    "Erdos590.erdos_590",
+    "Arxiv.«1308.0994».KTExtendsK",
+    "Erdos198.erdos_198.variants.concrete",
+    "Erdos513.erdos_513.variants.lower_bound",
+    "Erdos198.baumgartner_strong",
+    "Erdos617.erdos_617.variants.r_eq_4",
+    "Erdos1038.erdos_1038.parts.ii",
+    "OeisA231201.primeCondition_8",
+    "Erdos56.maxWeaklyDivisible_one",
+    "Erdos17.isClusterPrime_97_isLeast_non_cluster",
+    "BealConjecture.flt_of_beal_conjecture",
+    "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
+    "RiemannZetaValues.infinite_irrational_at_odd",
+    "AgohGiuga.isWeakGiuga_iff_sum_primeFactors",
+    "OeisA6697.count_false_morphism",
+    "Mathoverflow10799.μ_half_eq_uniform",
+    "OeisA67720.a_6",
+    "OpenQuantumProblem13.Qubit.star_smul_mul_smul",
+    "Erdos920.erdos_920.variants.k_eq_3",
+    "Erdos26.erdos_26.variants.rusza",
+    "InverseGalois.inverse_galois_problem.variants.symmetric_group",
+    "Erdos1067.erdos_1067.variants.infinite_edge_connectivity",
+    "Erdos1074.erdos_1074.variants.EHSNumbers_init",
+    "Erdos26.not_isThick_of_finite",
+    "Erdos50.erdos_50_schoenberg",
+    "Erdos951.erdos_951.variants.isBeurlingPrimes",
+    "Erdos965.erdos_965.variants.generalization",
+    "Erdos985.erdos_985.variants.two_three_five_primitive_root",
+    "PellNumbers.pellNumber_two",
+    "WrittenOnTheWallII.Test.C6_size",
+    "BusyBeaver.sanity_check",
+    "OpenQuantumProblem13.Qubit.firstCol_normSq",
+    "Erdos263.erdos_263.variants.sub_doubly_exponential",
+    "Arxiv.«1609.08688».tripleProduct_const",
+    "Erdos317.erdos_317.variants.counterexample",
+    "OpenQuantumProblem23.sicOverlapSq_three",
+    "Erdos442.erdos_442.variants.tao",
+    "AgohGiuga.korselts_criterion",
+    "Erdos1054.f_undefined_at_2",
+    "Erdos503.erdos_503.variants.R3",
+    "OeisA63880.a_of_primitive_mul_squarefree",
+    "Erdos1142.erdos_1142.variants.mientka_weitzenkamp",
+    "CongruentNumber.congruentNumber_7",
+    "WrittenOnTheWallII.Test.petersen_szeged",
+    "WrittenOnTheWallII.Test.petersen_radius",
+    "Erdos590.erdos_590.variants.ge_three_false",
+    "Erdos494.erdos_494.variants.product",
+    "Green29.green_29.variant",
+    "Erdos865.erdos_865.variants.k2",
+    "Hadamard.HadamardConjecture.variants.first_cases",
+    "Mathoverflow10799.boundaryCount_univ",
+    "Erdos457.erdos_457",
+    "OpenQuantumProblem23.bb84Family_not_isSICFamily",
+    "Green32.hasGap_empty",
+    "Erdos1052.isUnitaryPerfect_60",
+    "OeisA67720.a_1"
+  ],
+  "problem_files": [
+    "FC100Open/Arxiv/0912.2382/CurlingNumberConjecture.lean",
+    "FC100Open/Arxiv/1601.03081/UniqueCrystalComponents.lean",
+    "FC100Open/Arxiv/2501.03234/ArithmeticSumS.lean",
+    "FC100Open/Books/UniformDistributionOfSequences/Equidistribution.lean",
+    "FC100Open/ErdosProblems/1002.lean",
+    "FC100Open/ErdosProblems/1074.lean",
+    "FC100Open/ErdosProblems/1092.lean",
+    "FC100Open/ErdosProblems/1093.lean",
+    "FC100Open/ErdosProblems/1097.lean",
+    "FC100Open/ErdosProblems/1113.lean",
+    "FC100Open/ErdosProblems/12.lean",
+    "FC100Open/ErdosProblems/123.lean",
+    "FC100Open/ErdosProblems/125.lean",
+    "FC100Open/ErdosProblems/137.lean",
+    "FC100Open/ErdosProblems/188.lean",
+    "FC100Open/ErdosProblems/200.lean",
+    "FC100Open/ErdosProblems/23.lean",
+    "FC100Open/ErdosProblems/260.lean",
+    "FC100Open/ErdosProblems/269.lean",
+    "FC100Open/ErdosProblems/272.lean",
+    "FC100Open/ErdosProblems/282.lean",
+    "FC100Open/ErdosProblems/288.lean",
+    "FC100Open/ErdosProblems/307.lean",
+    "FC100Open/ErdosProblems/313.lean",
+    "FC100Open/ErdosProblems/324.lean",
+    "FC100Open/ErdosProblems/329.lean",
+    "FC100Open/ErdosProblems/332.lean",
+    "FC100Open/ErdosProblems/340.lean",
+    "FC100Open/ErdosProblems/358.lean",
+    "FC100Open/ErdosProblems/36.lean",
+    "FC100Open/ErdosProblems/385.lean",
+    "FC100Open/ErdosProblems/398.lean",
+    "FC100Open/ErdosProblems/409.lean",
+    "FC100Open/ErdosProblems/479.lean",
+    "FC100Open/ErdosProblems/517.lean",
+    "FC100Open/ErdosProblems/535.lean",
+    "FC100Open/ErdosProblems/539.lean",
+    "FC100Open/ErdosProblems/61.lean",
+    "FC100Open/ErdosProblems/647.lean",
+    "FC100Open/ErdosProblems/694.lean",
+    "FC100Open/ErdosProblems/695.lean",
+    "FC100Open/ErdosProblems/770.lean",
+    "FC100Open/ErdosProblems/830.lean",
+    "FC100Open/ErdosProblems/887.lean",
+    "FC100Open/ErdosProblems/888.lean",
+    "FC100Open/ErdosProblems/890.lean",
+    "FC100Open/ErdosProblems/92.lean",
+    "FC100Open/ErdosProblems/931.lean",
+    "FC100Open/ErdosProblems/952.lean",
+    "FC100Open/ErdosProblems/996.lean",
+    "FC100Open/GreensOpenProblems/14.lean",
+    "FC100Open/GreensOpenProblems/24.lean",
+    "FC100Open/GreensOpenProblems/31.lean",
+    "FC100Open/GreensOpenProblems/58.lean",
+    "FC100Open/GreensOpenProblems/61.lean",
+    "FC100Open/GreensOpenProblems/9.lean",
+    "FC100Open/Mathoverflow/1973.lean",
+    "FC100Open/Millenium/Poincare.lean",
+    "FC100Open/OEIS/303656.lean",
+    "FC100Open/OEIS/308734.lean",
+    "FC100Open/OEIS/41.lean",
+    "FC100Open/OEIS/63880.lean",
+    "FC100Open/OEIS/67720.lean",
+    "FC100Open/OEIS/80170.lean",
+    "FC100Open/OpenQuantumProblems/23.lean",
+    "FC100Open/Paper/MonochromaticQuantumGraph.lean",
+    "FC100Open/Wikipedia/Buchi.lean",
+    "FC100Open/Wikipedia/ClassNumberProblem.lean",
+    "FC100Open/Wikipedia/DiameterSimpleFiniteGroups.lean",
+    "FC100Open/Wikipedia/EllipticCurveRank.lean",
+    "FC100Open/Wikipedia/EulerBrick.lean",
+    "FC100Open/Wikipedia/Gilbreath.lean",
+    "FC100Open/Wikipedia/Grimm.lean",
+    "FC100Open/Wikipedia/Irrational.lean",
+    "FC100Open/Wikipedia/Koethe.lean",
+    "FC100Open/Wikipedia/LittlewoodConjecture.lean",
+    "FC100Open/Wikipedia/LychrelNumbers.lean",
+    "FC100Open/Wikipedia/Mandelbrot.lean",
+    "FC100Open/Wikipedia/Pell.lean",
+    "FC100Open/Wikipedia/RamseyNumbers.lean",
+    "FC100Open/Wikipedia/RiemannZetaValues.lean",
+    "FC100Open/Wikipedia/Selfridge.lean",
+    "FC100Open/Wikipedia/SumOfThreeCubes.lean",
+    "FC100Open/Wikipedia/Superperfectnumbers.lean",
+    "FC100Open/Wikipedia/Transcendental.lean",
+    "FC100Open/Wikipedia/UnionClosed.lean",
+    "FC100Open/WrittenOnTheWallII/GraphConjecture316.lean",
+    "FC100Open/WrittenOnTheWallII/GraphConjecture327.lean",
+    "FC100Solved/Arxiv/1308.0994/BoxdotConjecture.lean",
+    "FC100Solved/Arxiv/1609.08688/sIncreasingrTuples.lean",
+    "FC100Solved/Arxiv/2602.05192/FirstProof4.lean",
+    "FC100Solved/ErdosProblems/1038.lean",
+    "FC100Solved/ErdosProblems/1052.lean",
+    "FC100Solved/ErdosProblems/1054.lean",
+    "FC100Solved/ErdosProblems/1063.lean",
+    "FC100Solved/ErdosProblems/1067.lean",
+    "FC100Solved/ErdosProblems/1074.lean",
+    "FC100Solved/ErdosProblems/1142.lean",
+    "FC100Solved/ErdosProblems/12.lean",
+    "FC100Solved/ErdosProblems/141.lean",
+    "FC100Solved/ErdosProblems/17.lean",
+    "FC100Solved/ErdosProblems/198.lean",
+    "FC100Solved/ErdosProblems/26.lean",
+    "FC100Solved/ErdosProblems/263.lean",
+    "FC100Solved/ErdosProblems/295.lean",
+    "FC100Solved/ErdosProblems/317.lean",
+    "FC100Solved/ErdosProblems/349.lean",
+    "FC100Solved/ErdosProblems/350.lean",
+    "FC100Solved/ErdosProblems/36.lean",
+    "FC100Solved/ErdosProblems/392.lean",
+    "FC100Solved/ErdosProblems/399.lean",
+    "FC100Solved/ErdosProblems/41.lean",
+    "FC100Solved/ErdosProblems/42.lean",
+    "FC100Solved/ErdosProblems/442.lean",
+    "FC100Solved/ErdosProblems/457.lean",
+    "FC100Solved/ErdosProblems/494.lean",
+    "FC100Solved/ErdosProblems/50.lean",
+    "FC100Solved/ErdosProblems/503.lean",
+    "FC100Solved/ErdosProblems/513.lean",
+    "FC100Solved/ErdosProblems/56.lean",
+    "FC100Solved/ErdosProblems/590.lean",
+    "FC100Solved/ErdosProblems/61.lean",
+    "FC100Solved/ErdosProblems/617.lean",
+    "FC100Solved/ErdosProblems/678.lean",
+    "FC100Solved/ErdosProblems/686.lean",
+    "FC100Solved/ErdosProblems/697.lean",
+    "FC100Solved/ErdosProblems/835.lean",
+    "FC100Solved/ErdosProblems/865.lean",
+    "FC100Solved/ErdosProblems/886.lean",
+    "FC100Solved/ErdosProblems/920.lean",
+    "FC100Solved/ErdosProblems/951.lean",
+    "FC100Solved/ErdosProblems/965.lean",
+    "FC100Solved/ErdosProblems/968.lean",
+    "FC100Solved/ErdosProblems/985.lean",
+    "FC100Solved/GreensOpenProblems/14.lean",
+    "FC100Solved/GreensOpenProblems/29.lean",
+    "FC100Solved/GreensOpenProblems/32.lean",
+    "FC100Solved/Mathoverflow/10799.lean",
+    "FC100Solved/Mathoverflow/75792.lean",
+    "FC100Solved/OEIS/228828.lean",
+    "FC100Solved/OEIS/231201.lean",
+    "FC100Solved/OEIS/232174.lean",
+    "FC100Solved/OEIS/280831.lean",
+    "FC100Solved/OEIS/56777.lean",
+    "FC100Solved/OEIS/63880.lean",
+    "FC100Solved/OEIS/6697.lean",
+    "FC100Solved/OEIS/67720.lean",
+    "FC100Solved/OpenQuantumProblems/13.lean",
+    "FC100Solved/OpenQuantumProblems/23.lean",
+    "FC100Solved/OpenQuantumProblems/35.lean",
+    "FC100Solved/Paper/DegreeSequencesTriangleFree.lean",
+    "FC100Solved/Paper/Gourevitch.lean",
+    "FC100Solved/Paper/MonochromaticQuantumGraph.lean",
+    "FC100Solved/Wikipedia/AgohGiuga.lean",
+    "FC100Solved/Wikipedia/BealConjecture.lean",
+    "FC100Solved/Wikipedia/BusyBeaver.lean",
+    "FC100Solved/Wikipedia/CongruentNumber.lean",
+    "FC100Solved/Wikipedia/Hadamard.lean",
+    "FC100Solved/Wikipedia/InverseGalois.lean",
+    "FC100Solved/Wikipedia/Kaplansky.lean",
+    "FC100Solved/Wikipedia/LychrelNumbers.lean",
+    "FC100Solved/Wikipedia/Mahler32.lean",
+    "FC100Solved/Wikipedia/Pell.lean",
+    "FC100Solved/Wikipedia/RamanujanTau.lean",
+    "FC100Solved/Wikipedia/RiemannZetaValues.lean",
+    "FC100Solved/WrittenOnTheWallII/GraphConjecture13.lean",
+    "FC100Solved/WrittenOnTheWallII/GraphConjecture16.lean",
+    "FC100Solved/WrittenOnTheWallII/GraphConjecture33.lean",
+    "FC100Solved/WrittenOnTheWallII/Test.lean"
+  ],
+  "source_files": [
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Arxiv/0912.2382/CurlingNumberConjecture.lean",
+      "file": "FC100Open/Arxiv/0912.2382/CurlingNumberConjecture.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Arxiv/1601.03081/UniqueCrystalComponents.lean",
+      "file": "FC100Open/Arxiv/1601.03081/UniqueCrystalComponents.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Arxiv/2501.03234/ArithmeticSumS.lean",
+      "file": "FC100Open/Arxiv/2501.03234/ArithmeticSumS.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Books/UniformDistributionOfSequences/Equidistribution.lean",
+      "file": "FC100Open/Books/UniformDistributionOfSequences/Equidistribution.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/1002.lean",
+      "file": "FC100Open/ErdosProblems/1002.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/1074.lean",
+      "file": "FC100Open/ErdosProblems/1074.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/1092.lean",
+      "file": "FC100Open/ErdosProblems/1092.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/1093.lean",
+      "file": "FC100Open/ErdosProblems/1093.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/1097.lean",
+      "file": "FC100Open/ErdosProblems/1097.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/1113.lean",
+      "file": "FC100Open/ErdosProblems/1113.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/12.lean",
+      "file": "FC100Open/ErdosProblems/12.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/123.lean",
+      "file": "FC100Open/ErdosProblems/123.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/125.lean",
+      "file": "FC100Open/ErdosProblems/125.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/137.lean",
+      "file": "FC100Open/ErdosProblems/137.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/188.lean",
+      "file": "FC100Open/ErdosProblems/188.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/200.lean",
+      "file": "FC100Open/ErdosProblems/200.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/23.lean",
+      "file": "FC100Open/ErdosProblems/23.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/260.lean",
+      "file": "FC100Open/ErdosProblems/260.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/269.lean",
+      "file": "FC100Open/ErdosProblems/269.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/272.lean",
+      "file": "FC100Open/ErdosProblems/272.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/282.lean",
+      "file": "FC100Open/ErdosProblems/282.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/288.lean",
+      "file": "FC100Open/ErdosProblems/288.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/307.lean",
+      "file": "FC100Open/ErdosProblems/307.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/313.lean",
+      "file": "FC100Open/ErdosProblems/313.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/324.lean",
+      "file": "FC100Open/ErdosProblems/324.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/329.lean",
+      "file": "FC100Open/ErdosProblems/329.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/332.lean",
+      "file": "FC100Open/ErdosProblems/332.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/340.lean",
+      "file": "FC100Open/ErdosProblems/340.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/358.lean",
+      "file": "FC100Open/ErdosProblems/358.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/36.lean",
+      "file": "FC100Open/ErdosProblems/36.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/385.lean",
+      "file": "FC100Open/ErdosProblems/385.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/398.lean",
+      "file": "FC100Open/ErdosProblems/398.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/409.lean",
+      "file": "FC100Open/ErdosProblems/409.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/479.lean",
+      "file": "FC100Open/ErdosProblems/479.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/517.lean",
+      "file": "FC100Open/ErdosProblems/517.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/535.lean",
+      "file": "FC100Open/ErdosProblems/535.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/539.lean",
+      "file": "FC100Open/ErdosProblems/539.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/61.lean",
+      "file": "FC100Open/ErdosProblems/61.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/647.lean",
+      "file": "FC100Open/ErdosProblems/647.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/694.lean",
+      "file": "FC100Open/ErdosProblems/694.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/695.lean",
+      "file": "FC100Open/ErdosProblems/695.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/770.lean",
+      "file": "FC100Open/ErdosProblems/770.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/830.lean",
+      "file": "FC100Open/ErdosProblems/830.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/887.lean",
+      "file": "FC100Open/ErdosProblems/887.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/888.lean",
+      "file": "FC100Open/ErdosProblems/888.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/890.lean",
+      "file": "FC100Open/ErdosProblems/890.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/92.lean",
+      "file": "FC100Open/ErdosProblems/92.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/931.lean",
+      "file": "FC100Open/ErdosProblems/931.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/952.lean",
+      "file": "FC100Open/ErdosProblems/952.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/ErdosProblems/996.lean",
+      "file": "FC100Open/ErdosProblems/996.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/GreensOpenProblems/14.lean",
+      "file": "FC100Open/GreensOpenProblems/14.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/GreensOpenProblems/24.lean",
+      "file": "FC100Open/GreensOpenProblems/24.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/GreensOpenProblems/31.lean",
+      "file": "FC100Open/GreensOpenProblems/31.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/GreensOpenProblems/58.lean",
+      "file": "FC100Open/GreensOpenProblems/58.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/GreensOpenProblems/61.lean",
+      "file": "FC100Open/GreensOpenProblems/61.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/GreensOpenProblems/9.lean",
+      "file": "FC100Open/GreensOpenProblems/9.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Mathoverflow/1973.lean",
+      "file": "FC100Open/Mathoverflow/1973.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Millenium/Poincare.lean",
+      "file": "FC100Open/Millenium/Poincare.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/OEIS/303656.lean",
+      "file": "FC100Open/OEIS/303656.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/OEIS/308734.lean",
+      "file": "FC100Open/OEIS/308734.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/OEIS/41.lean",
+      "file": "FC100Open/OEIS/41.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/OEIS/63880.lean",
+      "file": "FC100Open/OEIS/63880.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/OEIS/67720.lean",
+      "file": "FC100Open/OEIS/67720.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/OEIS/80170.lean",
+      "file": "FC100Open/OEIS/80170.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/OpenQuantumProblems/23.lean",
+      "file": "FC100Open/OpenQuantumProblems/23.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Paper/MonochromaticQuantumGraph.lean",
+      "file": "FC100Open/Paper/MonochromaticQuantumGraph.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Buchi.lean",
+      "file": "FC100Open/Wikipedia/Buchi.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/ClassNumberProblem.lean",
+      "file": "FC100Open/Wikipedia/ClassNumberProblem.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/DiameterSimpleFiniteGroups.lean",
+      "file": "FC100Open/Wikipedia/DiameterSimpleFiniteGroups.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/EllipticCurveRank.lean",
+      "file": "FC100Open/Wikipedia/EllipticCurveRank.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/EulerBrick.lean",
+      "file": "FC100Open/Wikipedia/EulerBrick.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Gilbreath.lean",
+      "file": "FC100Open/Wikipedia/Gilbreath.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Grimm.lean",
+      "file": "FC100Open/Wikipedia/Grimm.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Irrational.lean",
+      "file": "FC100Open/Wikipedia/Irrational.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Koethe.lean",
+      "file": "FC100Open/Wikipedia/Koethe.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/LittlewoodConjecture.lean",
+      "file": "FC100Open/Wikipedia/LittlewoodConjecture.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/LychrelNumbers.lean",
+      "file": "FC100Open/Wikipedia/LychrelNumbers.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Mandelbrot.lean",
+      "file": "FC100Open/Wikipedia/Mandelbrot.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Pell.lean",
+      "file": "FC100Open/Wikipedia/Pell.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/RamseyNumbers.lean",
+      "file": "FC100Open/Wikipedia/RamseyNumbers.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/RiemannZetaValues.lean",
+      "file": "FC100Open/Wikipedia/RiemannZetaValues.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Selfridge.lean",
+      "file": "FC100Open/Wikipedia/Selfridge.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/SumOfThreeCubes.lean",
+      "file": "FC100Open/Wikipedia/SumOfThreeCubes.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Superperfectnumbers.lean",
+      "file": "FC100Open/Wikipedia/Superperfectnumbers.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/Transcendental.lean",
+      "file": "FC100Open/Wikipedia/Transcendental.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/Wikipedia/UnionClosed.lean",
+      "file": "FC100Open/Wikipedia/UnionClosed.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/WrittenOnTheWallII/GraphConjecture316.lean",
+      "file": "FC100Open/WrittenOnTheWallII/GraphConjecture316.lean"
+    },
+    {
+      "benchmark_set": "FC100OpenSet1",
+      "source": "FormalConjectures/WrittenOnTheWallII/GraphConjecture327.lean",
+      "file": "FC100Open/WrittenOnTheWallII/GraphConjecture327.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Arxiv/1308.0994/BoxdotConjecture.lean",
+      "file": "FC100Solved/Arxiv/1308.0994/BoxdotConjecture.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
+      "file": "FC100Solved/Arxiv/1609.08688/sIncreasingrTuples.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Arxiv/2602.05192/FirstProof4.lean",
+      "file": "FC100Solved/Arxiv/2602.05192/FirstProof4.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/1038.lean",
+      "file": "FC100Solved/ErdosProblems/1038.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/1052.lean",
+      "file": "FC100Solved/ErdosProblems/1052.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/1054.lean",
+      "file": "FC100Solved/ErdosProblems/1054.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/1063.lean",
+      "file": "FC100Solved/ErdosProblems/1063.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/1067.lean",
+      "file": "FC100Solved/ErdosProblems/1067.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/1074.lean",
+      "file": "FC100Solved/ErdosProblems/1074.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/1142.lean",
+      "file": "FC100Solved/ErdosProblems/1142.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/12.lean",
+      "file": "FC100Solved/ErdosProblems/12.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/141.lean",
+      "file": "FC100Solved/ErdosProblems/141.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/17.lean",
+      "file": "FC100Solved/ErdosProblems/17.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/198.lean",
+      "file": "FC100Solved/ErdosProblems/198.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/26.lean",
+      "file": "FC100Solved/ErdosProblems/26.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/263.lean",
+      "file": "FC100Solved/ErdosProblems/263.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/295.lean",
+      "file": "FC100Solved/ErdosProblems/295.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/317.lean",
+      "file": "FC100Solved/ErdosProblems/317.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/349.lean",
+      "file": "FC100Solved/ErdosProblems/349.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/350.lean",
+      "file": "FC100Solved/ErdosProblems/350.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/36.lean",
+      "file": "FC100Solved/ErdosProblems/36.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/392.lean",
+      "file": "FC100Solved/ErdosProblems/392.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/399.lean",
+      "file": "FC100Solved/ErdosProblems/399.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/41.lean",
+      "file": "FC100Solved/ErdosProblems/41.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/42.lean",
+      "file": "FC100Solved/ErdosProblems/42.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/442.lean",
+      "file": "FC100Solved/ErdosProblems/442.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/457.lean",
+      "file": "FC100Solved/ErdosProblems/457.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/494.lean",
+      "file": "FC100Solved/ErdosProblems/494.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/50.lean",
+      "file": "FC100Solved/ErdosProblems/50.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/503.lean",
+      "file": "FC100Solved/ErdosProblems/503.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/513.lean",
+      "file": "FC100Solved/ErdosProblems/513.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/56.lean",
+      "file": "FC100Solved/ErdosProblems/56.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/590.lean",
+      "file": "FC100Solved/ErdosProblems/590.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/61.lean",
+      "file": "FC100Solved/ErdosProblems/61.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/617.lean",
+      "file": "FC100Solved/ErdosProblems/617.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/678.lean",
+      "file": "FC100Solved/ErdosProblems/678.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/686.lean",
+      "file": "FC100Solved/ErdosProblems/686.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/697.lean",
+      "file": "FC100Solved/ErdosProblems/697.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/835.lean",
+      "file": "FC100Solved/ErdosProblems/835.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/865.lean",
+      "file": "FC100Solved/ErdosProblems/865.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/886.lean",
+      "file": "FC100Solved/ErdosProblems/886.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/920.lean",
+      "file": "FC100Solved/ErdosProblems/920.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/951.lean",
+      "file": "FC100Solved/ErdosProblems/951.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/965.lean",
+      "file": "FC100Solved/ErdosProblems/965.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/968.lean",
+      "file": "FC100Solved/ErdosProblems/968.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/ErdosProblems/985.lean",
+      "file": "FC100Solved/ErdosProblems/985.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/GreensOpenProblems/14.lean",
+      "file": "FC100Solved/GreensOpenProblems/14.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/GreensOpenProblems/29.lean",
+      "file": "FC100Solved/GreensOpenProblems/29.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/GreensOpenProblems/32.lean",
+      "file": "FC100Solved/GreensOpenProblems/32.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Mathoverflow/10799.lean",
+      "file": "FC100Solved/Mathoverflow/10799.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Mathoverflow/75792.lean",
+      "file": "FC100Solved/Mathoverflow/75792.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/228828.lean",
+      "file": "FC100Solved/OEIS/228828.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/231201.lean",
+      "file": "FC100Solved/OEIS/231201.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/232174.lean",
+      "file": "FC100Solved/OEIS/232174.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/280831.lean",
+      "file": "FC100Solved/OEIS/280831.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/56777.lean",
+      "file": "FC100Solved/OEIS/56777.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/63880.lean",
+      "file": "FC100Solved/OEIS/63880.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/6697.lean",
+      "file": "FC100Solved/OEIS/6697.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OEIS/67720.lean",
+      "file": "FC100Solved/OEIS/67720.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OpenQuantumProblems/13.lean",
+      "file": "FC100Solved/OpenQuantumProblems/13.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OpenQuantumProblems/23.lean",
+      "file": "FC100Solved/OpenQuantumProblems/23.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/OpenQuantumProblems/35.lean",
+      "file": "FC100Solved/OpenQuantumProblems/35.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Paper/DegreeSequencesTriangleFree.lean",
+      "file": "FC100Solved/Paper/DegreeSequencesTriangleFree.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Paper/Gourevitch.lean",
+      "file": "FC100Solved/Paper/Gourevitch.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Paper/MonochromaticQuantumGraph.lean",
+      "file": "FC100Solved/Paper/MonochromaticQuantumGraph.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/AgohGiuga.lean",
+      "file": "FC100Solved/Wikipedia/AgohGiuga.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/BealConjecture.lean",
+      "file": "FC100Solved/Wikipedia/BealConjecture.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/BusyBeaver.lean",
+      "file": "FC100Solved/Wikipedia/BusyBeaver.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/CongruentNumber.lean",
+      "file": "FC100Solved/Wikipedia/CongruentNumber.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/Hadamard.lean",
+      "file": "FC100Solved/Wikipedia/Hadamard.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/InverseGalois.lean",
+      "file": "FC100Solved/Wikipedia/InverseGalois.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/Kaplansky.lean",
+      "file": "FC100Solved/Wikipedia/Kaplansky.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/LychrelNumbers.lean",
+      "file": "FC100Solved/Wikipedia/LychrelNumbers.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/Mahler32.lean",
+      "file": "FC100Solved/Wikipedia/Mahler32.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/Pell.lean",
+      "file": "FC100Solved/Wikipedia/Pell.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/RamanujanTau.lean",
+      "file": "FC100Solved/Wikipedia/RamanujanTau.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/Wikipedia/RiemannZetaValues.lean",
+      "file": "FC100Solved/Wikipedia/RiemannZetaValues.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/WrittenOnTheWallII/GraphConjecture13.lean",
+      "file": "FC100Solved/WrittenOnTheWallII/GraphConjecture13.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/WrittenOnTheWallII/GraphConjecture16.lean",
+      "file": "FC100Solved/WrittenOnTheWallII/GraphConjecture16.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/WrittenOnTheWallII/GraphConjecture33.lean",
+      "file": "FC100Solved/WrittenOnTheWallII/GraphConjecture33.lean"
+    },
+    {
+      "benchmark_set": "FC100SolvedSet1",
+      "source": "FormalConjectures/WrittenOnTheWallII/Test.lean",
+      "file": "FC100Solved/WrittenOnTheWallII/Test.lean"
+    }
+  ]
+}
