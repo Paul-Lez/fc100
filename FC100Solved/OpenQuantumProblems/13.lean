@@ -209,7 +209,8 @@ collects the scalar factor as $\overline{a} a$. -/
 @[category API, AMS 5 15 81 94]
 lemma star_smul_mul_smul (a : ℂ) (A B : Matrix (Fin 2) (Fin 2) ℂ) :
     star (a • A) * (a • B) = (star a * a) • (star A * B) := by
-  sorry
+  -- Agent proof
+  rw [star_smul, smul_mul_assoc, mul_smul_comm, smul_smul]
 
 /-- The relative product of two phase matrices has the expected $2 \times 2$ form. -/
 @[category API, AMS 5 15 81 94]
@@ -388,7 +389,21 @@ lemma relativeUnitary_apply_zero_zero (U V : UMat 2) :
 @[category API, AMS 5 15 81 94]
 lemma firstCol_normSq (U : UMat 2) :
     Complex.normSq (u0 U) + Complex.normSq (u1 U) = 1 := by
-  sorry
+  -- Agent proof
+  have hUU : relativeUnitary U U = 1 := by
+    simp only [relativeUnitary]
+    exact Matrix.mem_unitaryGroup_iff'.mp U.2
+  have h00 : star (u0 U) * u0 U + star (u1 U) * u1 U = 1 := by
+    rw [← relativeUnitary_apply_zero_zero U U, hUU]
+    simp
+  have e0 : star (u0 U) * u0 U = (Complex.normSq (u0 U) : ℂ) := by
+    rw [mul_comm]
+    exact Complex.mul_conj (u0 U)
+  have e1 : star (u1 U) * u1 U = (Complex.normSq (u1 U) : ℂ) := by
+    rw [mul_comm]
+    exact Complex.mul_conj (u1 U)
+  rw [e0, e1] at h00
+  exact_mod_cast h00
 
 /-- The real part of $z \overline{w}$ is the Euclidean dot product of the coordinate pairs of
 `z` and `w`. -/

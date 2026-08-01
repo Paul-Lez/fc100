@@ -52,7 +52,8 @@ def finiteWord : ℕ → List Bool
 
 @[simp, category API, AMS 68]
 lemma count_false_morphism (b : Bool) : count false (morphism b) = if b then 0 else 2 := by
-  sorry
+  -- Agent proof
+  cases b <;> rfl
 
 @[simp, category API, AMS 68]
 lemma count_true_morphism (b : Bool) : count true (morphism b) = 1 := by

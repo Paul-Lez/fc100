@@ -227,7 +227,18 @@ private theorem eqSystem4_d2_nat :
 @[category test, AMS 5 14 81]
 theorem eqSystem4_has_solution_d2 :
     ∃ W : WeightsN 4 2 α, EqSystemN 4 2 W := by
-  sorry
+  -- Agent proof
+  refine ⟨Witness4_d2, ?_⟩
+  intro ι
+  have h0 : ι 0 = 0 ∨ ι 0 = 1 := by first | omega | exact Fin.eq_zero_or_eq_one (ι 0)
+  have h1 : ι 1 = 0 ∨ ι 1 = 1 := by first | omega | exact Fin.eq_zero_or_eq_one (ι 1)
+  have h2 : ι 2 = 0 ∨ ι 2 = 1 := by first | omega | exact Fin.eq_zero_or_eq_one (ι 2)
+  have h3 : ι 3 = 0 ∨ ι 3 = 1 := by first | omega | exact Fin.eq_zero_or_eq_one (ι 3)
+  rcases h0 with h0 | h0 <;> rcases h1 with h1 | h1 <;> rcases h2 with h2 | h2 <;> rcases h3 with h3 | h3 <;>
+    simp [pmSumN, pmSumList, vertices, pmSumListAux, allEqual, allEqualList,
+      List.IsChain, mkEdge, Witness4_d2, EdgeN.mk.injEq, List.erase, List.map,
+      List.sum, List.length, h0, h1, h2, h3, mul_one, one_mul, mul_zero, zero_mul,
+      add_zero, zero_add, and_true, true_and]
 
 end N4_D2
 

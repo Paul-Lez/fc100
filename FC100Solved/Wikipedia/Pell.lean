@@ -45,7 +45,8 @@ theorem pellNumber_one : pellNumber 1 = 1 := rfl
 
 @[category test, AMS 11]
 theorem pellNumber_two : pellNumber 2 = 2 := by
-  sorry
+  -- Agent proof
+  rfl
 
 @[category test, AMS 11]
 theorem pellNumber_five : pellNumber 5 = 29 := rfl

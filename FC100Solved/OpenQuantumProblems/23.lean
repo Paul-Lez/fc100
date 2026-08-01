@@ -242,7 +242,8 @@ lemma sicOverlapSq_two : sicOverlapSq 2 = (1 / 3 : ℝ) := by
 /-- The SIC overlap value in dimension $3$ is $1/4$. -/
 @[category test, AMS 15 47 81]
 lemma sicOverlapSq_three : sicOverlapSq 3 = (1 / 4 : ℝ) := by
-  sorry
+  -- Agent proof
+  simp [sicOverlapSq]; norm_num
 
 /-- Every vector in the tetrahedral qubit SIC family is normalized. -/
 @[category test, AMS 15 47 81]

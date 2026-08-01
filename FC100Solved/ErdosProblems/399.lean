@@ -73,7 +73,64 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hxy heq
+  have hx0 : x ≠ 0 := by rintro rfl; omega
+  have hy0 : y ≠ 0 := by rintro rfl; omega
+  have hx1 : 1 ≤ x := Nat.one_le_iff_ne_zero.mpr hx0
+  have hy1 : 1 ≤ y := Nat.one_le_iff_ne_zero.mpr hy0
+  have hgcd : Nat.gcd x y = 1 := hcop
+  have hne : ¬ (x % 2 = 0 ∧ y % 2 = 0) := by
+    rintro ⟨hx2, hy2⟩
+    have hdx : (2:ℕ) ∣ x := Nat.dvd_of_mod_eq_zero hx2
+    have hdy : (2:ℕ) ∣ y := Nat.dvd_of_mod_eq_zero hy2
+    have h2 : (2:ℕ) ∣ Nat.gcd x y := Nat.dvd_gcd hdx hdy
+    rw [hgcd] at h2
+    norm_num at h2
+  by_cases hn : 4 ≤ n
+  · have key : ∀ a : ℕ, a < 8 → a ^ 4 % 8 = a % 2 := by decide
+    have hmodx : x ^ 4 % 8 = x % 2 := by
+      have h8 : x ^ 4 % 8 = (x % 8) ^ 4 % 8 := by rw [Nat.pow_mod]
+      have hlt : x % 8 < 8 := Nat.mod_lt x (by norm_num)
+      have hk := key (x % 8) hlt
+      omega
+    have hmody : y ^ 4 % 8 = y % 2 := by
+      have h8 : y ^ 4 % 8 = (y % 8) ^ 4 % 8 := by rw [Nat.pow_mod]
+      have hlt : y % 8 < 8 := Nat.mod_lt y (by norm_num)
+      have hk := key (y % 8) hlt
+      omega
+    have h4fac : Nat.factorial 4 ∣ n ! := Nat.factorial_dvd_factorial hn
+    have h8dvd : (8:ℕ) ∣ n ! := dvd_trans (by decide : (8:ℕ) ∣ Nat.factorial 4) h4fac
+    have hn8 : n ! % 8 = 0 := by
+      obtain ⟨k, hk⟩ := h8dvd
+      rw [hk]
+      exact Nat.mul_mod_right 8 k
+    rw [heq] at hn8
+    have hfin : x % 2 = 0 ∧ y % 2 = 0 := by omega
+    exact hne hfin
+  · push_neg at hn
+    have hn3 : n ≤ 3 := by omega
+    have hn6 : n ! ≤ 6 := by
+      calc n ! ≤ 3 ! := Nat.factorial_le hn3
+      _ = 6 := by decide
+    have hxb : x < 2 := by
+      by_contra hcx
+      push_neg at hcx
+      have hx16 : (16:ℕ) ≤ x ^ 4 := by
+        calc (16:ℕ) = 2 ^ 4 := by norm_num
+        _ ≤ x ^ 4 := Nat.pow_le_pow_left hcx 4
+      omega
+    have hyb : y < 2 := by
+      by_contra hcy
+      push_neg at hcy
+      have hy16 : (16:ℕ) ≤ y ^ 4 := by
+        calc (16:ℕ) = 2 ^ 4 := by norm_num
+        _ ≤ y ^ 4 := Nat.pow_le_pow_left hcy 4
+      omega
+    have hxeq1 : x = 1 := by omega
+    have hyeq1 : y = 1 := by omega
+    rw [hxeq1, hyeq1] at hxy
+    omega
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if

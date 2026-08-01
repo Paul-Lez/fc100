@@ -36,7 +36,9 @@ def IsThick {ι : Type*} (A : ι → ℕ) : Prop := ¬Summable (fun i ↦ (1 : �
 
 @[category test, AMS 11]
 theorem not_isThick_of_finite {ι : Type*} [Finite ι] (A : ι → ℕ) : ¬IsThick A := by
-  sorry
+  -- Agent proof
+  haveI := Fintype.ofFinite ι
+  exact fun h => h ⟨_, hasSum_fintype _⟩
 
 @[category test, AMS 11]
 theorem not_isThick_of_geom_one_lt (r : ℕ) (hr : r > 1) : ¬IsThick fun n : ℕ ↦ r ^ n := by

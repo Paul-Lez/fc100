@@ -45,7 +45,9 @@ def ComesFromPrimeQuadruple (n : ℕ) : Prop :=
 /-- $65$ is in the sequence A56777. -/
 @[category test, AMS 11]
 theorem a_65 : a 65 := by
-  sorry
+  -- Agent proof
+  unfold a
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- $209$ is in the sequence A56777. -/
 @[category test, AMS 11]

@@ -53,7 +53,43 @@ there are distinct $a,b\in A$ such that $a+b\in A$, which establishes the $k=2$ 
 theorem erdos_865.variants.k2 (N : ℕ) :
     ∀ A ⊆ Icc 1 (2 * N), A.card ≥ N + 2 →
     ∃ a ∈ A, ∃ b ∈ A, a ≠ b ∧ a + b ∈ A := by
-  sorry
+  -- Agent proof
+  intro A hA hcard
+  have hA_nonempty : A.Nonempty := by
+    rw [← Finset.card_pos]
+    omega
+  set M := A.max' hA_nonempty
+  have hM_mem : M ∈ A := A.max'_mem hA_nonempty
+  have hM_mem_Icc := hA hM_mem
+  rw [Finset.mem_Icc] at hM_mem_Icc
+  obtain ⟨hM1, hM2N⟩ := hM_mem_Icc
+  have hA'_card : (A.erase M).card = A.card - 1 := Finset.card_erase_of_mem hM_mem
+  have hA'_card_ge : (A.erase M).card ≥ N + 1 := by omega
+  have hf_maps : ∀ x ∈ A.erase M, min x (M - x) ∈ Finset.Icc 1 N := by
+    intro x hx
+    have hxA : x ∈ A := Finset.mem_of_mem_erase hx
+    have hxM : x ≠ M := Finset.ne_of_mem_erase hx
+    have hxle : x ≤ M := Finset.le_max' A x hxA
+    have hx_mem_Icc := hA hxA
+    rw [Finset.mem_Icc] at hx_mem_Icc
+    rw [Finset.mem_Icc]
+    omega
+  have hcard_lt : (Finset.Icc 1 N).card < (A.erase M).card := by
+    rw [Nat.card_Icc]
+    omega
+  obtain ⟨x, hxA', y, hyA', hxy, hfxy⟩ :=
+    Finset.exists_ne_map_eq_of_card_lt_of_maps_to hcard_lt hf_maps
+  have hfxy' : min x (M - x) = min y (M - y) := hfxy
+  have hxA : x ∈ A := Finset.mem_of_mem_erase hxA'
+  have hyA : y ∈ A := Finset.mem_of_mem_erase hyA'
+  have hxM : x ≠ M := Finset.ne_of_mem_erase hxA'
+  have hyM : y ≠ M := Finset.ne_of_mem_erase hyA'
+  have hxle : x ≤ M := Finset.le_max' A x hxA
+  have hyle : y ≤ M := Finset.le_max' A y hyA
+  have hsum : x + y = M := by omega
+  refine ⟨x, hxA, y, hyA, hxy, ?_⟩
+  rw [hsum]
+  exact hM_mem
 
 noncomputable def f (N k : ℕ) : ℕ :=
   sInf {m | ∀ A ⊆ Icc 1 N, A.card ≥ m →

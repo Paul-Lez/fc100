@@ -53,7 +53,8 @@ Cambie [Ca24] found the example $M(52, 7) > M(62, 8)$.
 -/
 @[category test, AMS 11]
 lemma lcmInterval_lt_example3 : lcmInterval 62 8 < lcmInterval 52 7 := by
-  sorry
+  -- Agent proof
+  decide
 
 /--
 Cambie [Ca24] found the example $M(36, 8) > M(48, 9)$.

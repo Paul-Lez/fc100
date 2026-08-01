@@ -69,7 +69,42 @@ theorem finiteAdditiveConvolution_degree (n : ℕ) (p q : ℝ[X])
 theorem finiteAdditiveConvolution_monic' (n : ℕ) (p q : ℝ[X]) (hn : 0 < n)
     (hp_deg : p.degree = n) (hq_deg : q.degree = n) (hp_monic : p.Monic) (hq_monic : q.Monic) :
     (p (⊞_n) q).Monic := by
-  sorry
+  -- Agent proof
+  have hp_natDeg : p.natDegree = n := Polynomial.natDegree_eq_of_degree_eq_some hp_deg
+  have hq_natDeg : q.natDegree = n := Polynomial.natDegree_eq_of_degree_eq_some hq_deg
+  have hp_coeff : p.coeff n = 1 := by
+    have h : p.coeff p.natDegree = 1 := hp_monic
+    rwa [hp_natDeg] at h
+  have hq_coeff : q.coeff n = 1 := by
+    have h : q.coeff q.natDegree = 1 := hq_monic
+    rwa [hq_natDeg] at h
+  have hle : (finiteAdditiveConvolution n p q).degree ≤ (n : WithBot ℕ) := by
+    simp only [finiteAdditiveConvolution]
+    refine le_trans (Polynomial.degree_sum_le _ _) (Finset.sup_le fun k hk => ?_)
+    refine le_trans (Polynomial.degree_smul_le _ _) ?_
+    rw [Polynomial.degree_X_pow]
+    exact_mod_cast Nat.sub_le n k
+  have hcoeffn : (finiteAdditiveConvolution n p q).coeff n = 1 := by
+    simp only [finiteAdditiveConvolution]
+    rw [Polynomial.finset_sum_coeff, Finset.sum_eq_single 0]
+    · simp only [Finset.antidiagonal_zero, Finset.sum_singleton]
+      rw [Nat.sub_zero, Polynomial.coeff_smul, Polynomial.coeff_X_pow, if_pos rfl, smul_eq_mul, mul_one, hp_coeff, hq_coeff, mul_one, mul_one]
+      exact div_self (mul_ne_zero (Nat.cast_ne_zero.mpr (Nat.factorial_pos n).ne') (Nat.cast_ne_zero.mpr (Nat.factorial_pos n).ne'))
+    · intro k hk hk0
+      have hkn : k ≤ n := Nat.lt_succ_iff.mp (Finset.mem_range.mp hk)
+      have hne : n ≠ n - k := by omega
+      simp [Polynomial.coeff_smul, Polynomial.coeff_X_pow, hne]
+    · intro h0
+      exact absurd (Finset.mem_range.mpr (by omega)) h0
+  have hge : (n : WithBot ℕ) ≤ (finiteAdditiveConvolution n p q).degree :=
+    Polynomial.le_degree_of_ne_zero (by rw [hcoeffn]; exact one_ne_zero)
+  have hdeg : (finiteAdditiveConvolution n p q).degree = (n : WithBot ℕ) := le_antisymm hle hge
+  have hnatdeg : (finiteAdditiveConvolution n p q).natDegree = n :=
+    Polynomial.natDegree_eq_of_degree_eq_some hdeg
+  show (finiteAdditiveConvolution n p q).leadingCoeff = 1
+  unfold Polynomial.leadingCoeff
+  rw [hnatdeg]
+  exact hcoeffn
 
 /--
 For a monic polynomial $p(x)=\prod_{i\le n}(x- \lambda_i)$, define

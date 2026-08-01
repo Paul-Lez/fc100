@@ -50,7 +50,13 @@ lemma a_one : a 1 = 3 := by
 
 @[category test, AMS 11]
 lemma a_two : a 2 = 7 := by
-  sorry
+  -- Agent proof
+  unfold a
+  convert Nat.nth_count _
+  · norm_num [Nat.count_succ]
+    decide
+  · exact Classical.decPred fun n ↦ Nat.Prime (n ^ 2 + π n)
+  · decide
 
 /--
 Conjecture: the sequence A228828 is infinite.

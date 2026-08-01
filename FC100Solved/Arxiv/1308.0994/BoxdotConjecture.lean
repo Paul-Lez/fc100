@@ -142,7 +142,15 @@ If `KProof Γ φ`, then `KTProof Γ φ`. In other words, KT extends K.
 -/
 @[category API, AMS 3]
 lemma KTExtendsK {Γ φ} (h : KProof Γ φ) : KTProof Γ φ := by
-  sorry
+  -- Agent proof
+  induction h with
+  | ax hmem => exact KTProof.lift_K (KProof.ax hmem)
+  | ax1 => exact KTProof.lift_K KProof.ax1
+  | ax2 => exact KTProof.lift_K KProof.ax2
+  | ax3 => exact KTProof.lift_K KProof.ax3
+  | mp h1 h2 ih1 ih2 => exact KTProof.mp ih1 ih2
+  | nec h ih => exact KTProof.nec ih
+  | distr => exact KTProof.lift_K KProof.distr
 
 /--
 A “normal modal logic” L is any `Set Formula` such that:
