@@ -118,7 +118,7 @@ elab "#count_fc100_solved_sorry_free_proofs" : command => do
       count := count + 1
   logInfo m!"{count}"
 
-/-- info: 28 -/
+/-- info: 30 -/
 #guard_msgs in
 #count_fc100_solved_sorry_free_proofs
 
