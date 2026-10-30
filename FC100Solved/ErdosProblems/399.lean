@@ -73,7 +73,41 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hxy hEq
+  by_cases hn : 4 ≤ n
+  · have hfour : 4 ! ∣ n ! := Nat.factorial_dvd_factorial hn
+    have h8four : 8 ∣ 4 ! := by norm_num [Nat.factorial]
+    have h8fac : 8 ∣ n ! := dvd_trans h8four hfour
+    rw [hEq] at h8fac
+    have hmod : (x ^ 4 + y ^ 4) % 8 = 0 := Nat.dvd_iff_mod_eq_zero.mp h8fac
+    have hnot : ¬ (2 ∣ x ∧ 2 ∣ y) := by
+      rintro ⟨hx, hy⟩
+      have htwo : 2 ∣ Nat.gcd x y := Nat.dvd_gcd hx hy
+      have hgcd : Nat.gcd x y = 1 := hcop
+      rw [hgcd] at htwo
+      norm_num at htwo
+    have hxlt : x % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    have hylt : y % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    interval_cases hx : x % 8 <;> interval_cases hy : y % 8 <;>
+      norm_num [Nat.add_mod, Nat.pow_mod, hx, hy] at hmod
+    all_goals
+      apply hnot
+      constructor <;> rw [Nat.dvd_iff_mod_eq_zero] <;> omega
+  · have hnlt : n < 4 := by omega
+    have hfac : n ! ≤ 6 := by
+      interval_cases n <;> norm_num [Nat.factorial]
+    have hxpow : x ^ 4 ≤ 6 := by omega
+    have hypow : y ^ 4 ≤ 6 := by omega
+    have hsmall (z : ℕ) (hz : z ^ 4 ≤ 6) : z < 2 := by
+      by_contra hzlt
+      have htwo : 2 ≤ z := by omega
+      have hp : 2 ^ 4 ≤ z ^ 4 := by gcongr
+      norm_num at hp
+      omega
+    have hxlt := hsmall x hxpow
+    have hylt := hsmall y hypow
+    interval_cases x <;> interval_cases y <;> norm_num at hxy
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if
