@@ -53,7 +53,8 @@ theorem a_4 : a 4 := by
 /-- $6$ is in the sequence A067720. -/
 @[category test, AMS 11]
 theorem a_6 : a 6 := by
-  sorry
+  -- Agent proof
+  simp +decide only [a]
 
 /-- $8$ is in the sequence A067720. -/
 @[category test, AMS 11]
