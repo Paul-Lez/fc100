@@ -68,6 +68,18 @@ $$\frac{1}{2}-\frac{1}{3}-\frac{1}{4}=-\frac{1}{12}.$$
 theorem erdos_317.variants.counterexample : ¬ (∀  δ : (Fin 4) → ℚ, δ '' Set.univ ⊆ {-1,0,1} →
     letI lhs := |∑ k, ((δ k : ℚ) / (k + 1))|
     lhs ≠ 0 → lhs > (1 : ℚ) / ((Icc 1 4).lcm id : ℕ)) := by
-  sorry
+  -- Agent proof
+  intro h
+  let δ : Fin 4 → ℚ := ![0, 1, -1, -1]
+  have hδ : δ '' Set.univ ⊆ {-1, 0, 1} := by
+    rintro x ⟨i, hi, rfl⟩
+    fin_cases i <;> simp [δ]
+  have hs : (∑ k, δ k / ((k : ℚ) + 1)) = -(1 : ℚ) / 12 := by
+    norm_num [δ, Fin.sum_univ_succ]
+  have hlcm : (Icc 1 4).lcm id = 12 := by
+    decide
+  have hbad := h δ hδ
+  rw [hs, hlcm] at hbad
+  norm_num at hbad
 
 end Erdos317
