@@ -150,7 +150,10 @@ def HasSICPOVM (d : ℕ) : Prop :=
 @[category test, AMS 15 47 81]
 lemma hasConstantOverlapSq_singleton {d : ℕ} (c : ℝ) (ψ : StateVector d) :
     HasConstantOverlapSq c (fun _ : Fin 1 => ψ) := by
-  sorry
+  -- Agent proof
+  unfold HasConstantOverlapSq
+  intro i j hij
+  exact (hij (Subsingleton.elim i j)).elim
 
 /-- The SIC overlap value in dimension $1$ is $1/2$. -/
 @[category test, AMS 15 47 81]
@@ -242,7 +245,8 @@ lemma sicOverlapSq_two : sicOverlapSq 2 = (1 / 3 : ℝ) := by
 /-- The SIC overlap value in dimension $3$ is $1/4$. -/
 @[category test, AMS 15 47 81]
 lemma sicOverlapSq_three : sicOverlapSq 3 = (1 / 4 : ℝ) := by
-  sorry
+  -- Agent proof
+  norm_num [sicOverlapSq]
 
 /-- Every vector in the tetrahedral qubit SIC family is normalized. -/
 @[category test, AMS 15 47 81]
