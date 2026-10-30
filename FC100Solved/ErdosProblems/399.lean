@@ -73,7 +73,114 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hxy heq
+  have hxpos : 0 < x := by
+    by_contra hx
+    have hx0 : x = 0 := Nat.eq_zero_of_not_pos hx
+    subst x
+    simp at hxy
+  have hypos : 0 < y := by
+    by_contra hy
+    have hy0 : y = 0 := Nat.eq_zero_of_not_pos hy
+    subst y
+    simp at hxy
+  have hx1 : 1 ≤ x := by omega
+  have hy1 : 1 ≤ y := by omega
+  have hor : 2 ≤ x ∨ 2 ≤ y := by
+    by_cases hx2 : 2 ≤ x
+    · exact Or.inl hx2
+    · right
+      have hx_eq : x = 1 := by omega
+      subst x
+      simp at hxy
+      omega
+  have hlarge : 17 ≤ x ^ 4 + y ^ 4 := by
+    rcases hor with hx2 | hy2
+    · have hxp : 16 ≤ x ^ 4 := by
+        calc
+          16 = 2 * 2 * 2 * 2 := by norm_num
+          _ ≤ x * x * x * x := by gcongr
+          _ = x ^ 4 := by ring
+      have hyp : 1 ≤ y ^ 4 := by
+        calc
+          1 = 1 * 1 * 1 * 1 := by norm_num
+          _ ≤ y * y * y * y := by gcongr
+          _ = y ^ 4 := by ring
+      omega
+    · have hxp : 1 ≤ x ^ 4 := by
+        calc
+          1 = 1 * 1 * 1 * 1 := by norm_num
+          _ ≤ x * x * x * x := by gcongr
+          _ = x ^ 4 := by ring
+      have hyp : 16 ≤ y ^ 4 := by
+        calc
+          16 = 2 * 2 * 2 * 2 := by norm_num
+          _ ≤ y * y * y * y := by gcongr
+          _ = y ^ 4 := by ring
+      omega
+  by_cases hn : n < 4
+  · have hnle : n ≤ 3 := by omega
+    have hfac : n ! ≤ 6 := by
+      interval_cases n <;> norm_num
+    omega
+  · have hn4 : 4 ≤ n := by omega
+    have hfac : ∀ m : ℕ, 4 ≤ m → 8 ∣ m ! := by
+      intro m
+      induction m with
+      | zero =>
+          intro hm
+          omega
+      | succ m ih =>
+          intro hm
+          by_cases hm3 : m = 3
+          · subst m
+            norm_num
+          · have hm4 : 4 ≤ m := by omega
+            have hi : 8 ∣ m ! := ih hm4
+            rcases hi with ⟨k, hk⟩
+            refine ⟨k * (m + 1), ?_⟩
+            simp [Nat.factorial_succ, hk, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm]
+    have hdiv : 8 ∣ n ! := hfac n hn4
+    have hmodfac : n ! % 8 = 0 := by
+      rcases hdiv with ⟨k, hk⟩
+      simp [hk, Nat.mul_mod]
+    have hpow_mod : ∀ z : ℕ,
+        (z % 2 = 0 ∧ z ^ 4 % 8 = 0) ∨
+          (z % 2 = 1 ∧ z ^ 4 % 8 = 1) := by
+      intro z
+      have hz : z % 8 < 8 := Nat.mod_lt _ (by norm_num)
+      interval_cases hzr : z % 8 <;>
+        norm_num [Nat.pow_succ, Nat.mul_mod, hzr] <;> omega
+    have hnot : (x ^ 4 + y ^ 4) % 8 ≠ 0 := by
+      intro hzero
+      rcases hpow_mod x with ⟨hxeven, hxzero⟩ | ⟨hxodd, hxone⟩
+      · rcases hpow_mod y with ⟨hyeven, hyzero⟩ | ⟨hyodd, hyone⟩
+        · have h2x : 2 ∣ x := by
+            refine ⟨x / 2, ?_⟩
+            omega
+          have h2y : 2 ∣ y := by
+            refine ⟨y / 2, ?_⟩
+            omega
+          have hg : 2 ∣ Nat.gcd x y := Nat.dvd_gcd h2x h2y
+          rw [hcop] at hg
+          norm_num at hg
+        · have hsum : (x ^ 4 + y ^ 4) % 8 = 1 := by
+            simp [Nat.add_mod, hxzero, hyone]
+          omega
+      · rcases hpow_mod y with ⟨hyeven, hyzero⟩ | ⟨hyodd, hyone⟩
+        · have hsum : (x ^ 4 + y ^ 4) % 8 = 1 := by
+            simp [Nat.add_mod, hxone, hyzero]
+          omega
+        · have hsum : (x ^ 4 + y ^ 4) % 8 = 2 := by
+            simp [Nat.add_mod, hxone, hyone]
+          omega
+    have hmodEq := congrArg (fun t : ℕ => t % 8) heq
+    have hrhs : (x ^ 4 + y ^ 4) % 8 = 0 := by
+      calc
+        (x ^ 4 + y ^ 4) % 8 = n ! % 8 := by symm; exact hmodEq
+        _ = 0 := hmodfac
+    exact hnot hrhs
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if
