@@ -40,7 +40,18 @@ The first three odd primes are an example of three consecutive primes.
 -/
 @[category test, AMS 5 11]
 theorem first_three_odd_primes : ({3, 5, 7} : Set ℕ).IsPrimeProgressionOfLength 3 := by
-  sorry
+  -- Agent proof
+  refine ⟨1, by norm_num, ?_⟩
+  ext x
+  simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
+  constructor
+  · rintro (rfl | rfl | rfl)
+    · exact ⟨0, by norm_num, by norm_num⟩
+    · exact ⟨1, by norm_num, by norm_num⟩
+    · exact ⟨2, by norm_num, by norm_num⟩
+  · rintro ⟨n, hn, rfl⟩
+    norm_num at hn
+    interval_cases n <;> norm_num
 
 /--
 The predicate that a set `s` is both an arithmetic progression of length `l` and a progression
