@@ -73,7 +73,51 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hxy heq
+  by_cases hn : 4 ≤ n
+  · have hdiv : 8 ∣ n ! := by
+      have h4 : 8 ∣ 4 ! := by norm_num [Nat.factorial]
+      exact h4.trans (Nat.factorial_dvd_factorial hn)
+    have hmod : (x ^ 4 + y ^ 4) % 8 = 0 := by
+      rw [← heq]
+      exact Nat.mod_eq_zero_of_dvd hdiv
+    have hxlt : x % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    have hylt : y % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    interval_cases hx : x % 8 <;> interval_cases hy : y % 8
+    all_goals
+      norm_num [Nat.add_mod, Nat.pow_mod, hx, hy] at hmod
+    all_goals
+      have hx2 : 2 ∣ x := by
+        apply Nat.dvd_iff_mod_eq_zero.mpr
+        omega
+      have hy2 : 2 ∣ y := by
+        apply Nat.dvd_iff_mod_eq_zero.mpr
+        omega
+      have hgcd : 2 ∣ Nat.gcd x y := Nat.dvd_gcd hx2 hy2
+      rw [hcop] at hgcd
+      norm_num at hgcd
+  · have hn' : n ≤ 3 := by omega
+    have hfac : n ! ≤ 6 := by
+      interval_cases n <;> norm_num [Nat.factorial]
+    have hsum : x ^ 4 + y ^ 4 ≤ 6 := by omega
+    have hxsmall : x < 2 := by
+      by_contra hx
+      have hx' : 2 ≤ x := by omega
+      have hxp : 16 ≤ x ^ 4 := by
+        calc
+          16 = 2 ^ 4 := by norm_num
+          _ ≤ x ^ 4 := by gcongr
+      omega
+    have hysmall : y < 2 := by
+      by_contra hy
+      have hy' : 2 ≤ y := by omega
+      have hyp : 16 ≤ y ^ 4 := by
+        calc
+          16 = 2 ^ 4 := by norm_num
+          _ ≤ y ^ 4 := by gcongr
+      omega
+    interval_cases x <;> interval_cases y <;> norm_num at hxy
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if
