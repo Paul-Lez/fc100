@@ -73,7 +73,74 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hprod hEq
+  have hxy : 2 ≤ x ∨ 2 ≤ y := by
+    by_cases hx : 2 ≤ x
+    · exact Or.inl hx
+    · right
+      by_contra hy
+      have hx' : x ≤ 1 := by omega
+      have hy' : y ≤ 1 := by omega
+      have hmul : x * y ≤ 1 * 1 := Nat.mul_le_mul hx' hy'
+      norm_num at hmul
+      omega
+  have hsum : 16 ≤ x ^ 4 + y ^ 4 := by
+    rcases hxy with hx | hy
+    · have hx4 : 2 ^ 4 ≤ x ^ 4 := by gcongr
+      norm_num at hx4
+      omega
+    · have hy4 : 2 ^ 4 ≤ y ^ 4 := by gcongr
+      norm_num at hy4
+      omega
+  have hn : 4 ≤ n := by
+    by_contra hn
+    have hn' : n ≤ 3 := by omega
+    interval_cases n <;> norm_num at hEq <;> omega
+  have h8 : 8 ∣ n ! := by
+    have h4 : 8 ∣ 4 ! := by norm_num
+    exact dvd_trans h4 (Nat.factorial_dvd_factorial hn)
+  rcases h8 with ⟨q, hq⟩
+  have parity (z : ℕ) :
+      (∃ a, z = 2 * a ∧ z ^ 4 = 8 * (2 * a ^ 4)) ∨
+        ∃ a, z = 2 * a + 1 ∧
+          z ^ 4 = 8 * (2 * a ^ 4 + 4 * a ^ 3 + 3 * a ^ 2 + a) + 1 := by
+    have hz : z % 2 = 0 ∨ z % 2 = 1 := by omega
+    rcases hz with hz | hz
+    · left
+      let a := z / 2
+      have ha : z = 2 * a := by
+        dsimp [a]
+        omega
+      refine ⟨a, ha, ?_⟩
+      rw [ha]
+      ring
+    · right
+      let a := z / 2
+      have ha : z = 2 * a + 1 := by
+        dsimp [a]
+        omega
+      refine ⟨a, ha, ?_⟩
+      rw [ha]
+      ring
+  rcases parity x with hx | hx
+  · rcases hx with ⟨a, hxa, hx4⟩
+    rcases parity y with hy | hy
+    · rcases hy with ⟨b, hyb, hy4⟩
+      have hx2 : 2 ∣ x := ⟨a, hxa⟩
+      have hy2 : 2 ∣ y := ⟨b, hyb⟩
+      have h2one : 2 ∣ 1 := by
+        rw [← hcop]
+        exact Nat.dvd_gcd hx2 hy2
+      norm_num at h2one
+    · rcases hy with ⟨b, hyb, hy4⟩
+      omega
+  · rcases hx with ⟨a, hxa, hx4⟩
+    rcases parity y with hy | hy
+    · rcases hy with ⟨b, hyb, hy4⟩
+      omega
+    · rcases hy with ⟨b, hyb, hy4⟩
+      omega
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if

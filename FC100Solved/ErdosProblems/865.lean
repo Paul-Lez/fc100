@@ -53,7 +53,103 @@ there are distinct $a,b\in A$ such that $a+b\in A$, which establishes the $k=2$ 
 theorem erdos_865.variants.k2 (N : ℕ) :
     ∀ A ⊆ Icc 1 (2 * N), A.card ≥ N + 2 →
     ∃ a ∈ A, ∃ b ∈ A, a ≠ b ∧ a + b ∈ A := by
-  sorry
+  -- Agent proof
+  intro A hsub hcard
+  have hcardpos : 0 < A.card := by omega
+  have hA : A.Nonempty := Finset.card_pos.mp hcardpos
+  let c := A.max' hA
+  have hcA : c ∈ A := by
+    simpa [c] using Finset.max'_mem A hA
+  have hc_bound : c ≤ 2 * N := (Finset.mem_Icc.mp (hsub hcA)).2
+  by_contra hno
+  have hsum : ∀ {x y : ℕ}, x ∈ A → y ∈ A → x ≠ y → x + y ∉ A := by
+    intro x y hx hy hxy hmem
+    exact hno ⟨x, hx, y, hy, hxy, hmem⟩
+  let f : ℕ → ℕ := fun x => if x = c then 0 else min x (c - x)
+  have hf_lt : ∀ x ∈ A, f x < c / 2 + 1 := by
+    intro x hx
+    have hxle : x ≤ c := by
+      simpa [c] using Finset.le_max' A x hx
+    by_cases hxc : x = c
+    · simp [f, hxc]
+    · have hmin : min x (c - x) ≤ c / 2 := by
+        by_cases hxhalf : x ≤ c / 2
+        · exact (min_le_left x (c - x)).trans hxhalf
+        · have hsubhalf : c - x ≤ c / 2 := by omega
+          exact (min_le_right x (c - x)).trans hsubhalf
+      simp only [f, hxc, if_false]
+      omega
+  have hf_inj : Set.InjOn f (↑A : Set ℕ) := by
+    intro x hx y hy hxy
+    have hxA : x ∈ A := by simpa using hx
+    have hyA : y ∈ A := by simpa using hy
+    have hxone : 1 ≤ x := (Finset.mem_Icc.mp (hsub hxA)).1
+    have hyone : 1 ≤ y := (Finset.mem_Icc.mp (hsub hyA)).1
+    have hxle : x ≤ c := by
+      simpa [c] using Finset.le_max' A x hxA
+    have hyle : y ≤ c := by
+      simpa [c] using Finset.le_max' A y hyA
+    by_cases hxc : x = c
+    · subst x
+      by_cases hyc : y = c
+      · subst y
+        rfl
+      · have hylt : y < c := by omega
+        have hz : 0 = min y (c - y) := by
+          simpa [f, hyc] using hxy
+        by_cases hyl : y ≤ c - y
+        · rw [min_eq_left hyl] at hz
+          omega
+        · have hyr : c - y ≤ y := by omega
+          rw [min_eq_right hyr] at hz
+          omega
+    · by_cases hyc : y = c
+      · subst y
+        have hxlt : x < c := by omega
+        have hz : min x (c - x) = 0 := by
+          simpa [f, hxc] using hxy
+        by_cases hxl : x ≤ c - x
+        · rw [min_eq_left hxl] at hz
+          omega
+        · have hxr : c - x ≤ x := by omega
+          rw [min_eq_right hxr] at hz
+          omega
+      · have hmin : min x (c - x) = min y (c - y) := by
+          simpa [f, hxc, hyc] using hxy
+        by_cases hxl : x ≤ c - x
+        · rw [min_eq_left hxl] at hmin
+          by_cases hyl : y ≤ c - y
+          · rw [min_eq_left hyl] at hmin
+            exact hmin
+          · have hyr : c - y ≤ y := by omega
+            rw [min_eq_right hyr] at hmin
+            by_contra hne
+            apply hsum hxA hyA hne
+            have hsumc : x + y = c := by omega
+            simpa only [hsumc] using hcA
+        · have hxr : c - x ≤ x := by omega
+          rw [min_eq_right hxr] at hmin
+          by_cases hyl : y ≤ c - y
+          · rw [min_eq_left hyl] at hmin
+            by_contra hne
+            apply hsum hxA hyA hne
+            have hsumc : x + y = c := by omega
+            simpa only [hsumc] using hcA
+          · have hyr : c - y ≤ y := by omega
+            rw [min_eq_right hyr] at hmin
+            omega
+  have hcard_image : (A.image f).card = A.card :=
+    Finset.card_image_iff.mpr hf_inj
+  have himage : A.image f ⊆ range (c / 2 + 1) := by
+    intro z hz
+    rcases Finset.mem_image.mp hz with ⟨x, hx, rfl⟩
+    exact Finset.mem_range.mpr (hf_lt x hx)
+  have hupper : A.card ≤ c / 2 + 1 := by
+    calc
+      A.card = (A.image f).card := hcard_image.symm
+      _ ≤ (range (c / 2 + 1)).card := Finset.card_le_card himage
+      _ = c / 2 + 1 := Finset.card_range _
+  omega
 
 noncomputable def f (N k : ℕ) : ℕ :=
   sInf {m | ∀ A ⊆ Icc 1 N, A.card ≥ m →

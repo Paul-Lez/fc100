@@ -42,7 +42,33 @@ prime numbers. -/
 theorem erdos_951.variants.isBeurlingPrimes {a : ℕ → ℝ} (ha : 1 < a 0)
     (hm : StrictMono a) (he : Erdos951Prop a) :
     IsBeurlingPrimes a := by
-  sorry
+  -- Agent proof
+  have hsep (n : ℕ) : 1 ≤ a (n + 1) - a n := by
+    have hne : (Finsupp.single (n + 1) 1 : ℕ →₀ ℕ) ≠ Finsupp.single n 1 := by
+      intro h
+      have h' := congrArg (fun f : ℕ →₀ ℕ => f (n + 1)) h
+      simp at h'
+    have h := he (Finsupp.single (n + 1) 1) (Finsupp.single n 1) hne
+    simpa [beurlingInteger,
+      abs_of_nonneg (sub_nonneg.mpr (le_of_lt (hm (Nat.lt_succ_self n))))] using h
+  have hlower : ∀ n : ℕ, (n : ℝ) + a 0 ≤ a n := by
+    intro n
+    induction n with
+    | zero => simp
+    | succ n ih =>
+        rw [Nat.cast_succ]
+        linarith [hsep n]
+  have ht : Tendsto a atTop atTop := by
+    apply tendsto_atTop.2
+    intro b
+    obtain ⟨n, hn⟩ := exists_nat_ge b
+    filter_upwards [eventually_ge_atTop n] with m hm'
+    have hnm : (n : ℝ) ≤ (m : ℝ) := by
+      exact_mod_cast hm'
+    have hma : (m : ℝ) ≤ a m := by
+      linarith [hlower m, ha]
+    exact hn.trans (hnm.trans hma)
+  simpa only [IsBeurlingPrimes, ha, hm, true_and, and_true] using ht
 
 /-- If `1 < a 0 < ...` has property `Erdos951Prop`, is it true that `#{a i ≤ x} ≤ π x`? -/
 @[category research open, AMS 11]
