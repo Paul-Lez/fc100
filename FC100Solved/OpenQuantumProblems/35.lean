@@ -635,12 +635,14 @@ lemma ghzState_isAME {d : ℕ} (hd : 2 ≤ d) :
 /-- The Bell state witnesses the existence of $\mathrm{AME}(2,d)$ for every local dimension $d \ge 2$. -/
 @[category research solved, AMS 5 15 81 94]
 theorem ame_2_exists {d : ℕ} (hd : 2 ≤ d) : ExistsAME 2 d := by
-  sorry
+  -- Agent proof
+  exact ⟨bellState d, bellState_isAME hd⟩
 
 /-- The $3$-party GHZ state witnesses the existence of $\mathrm{AME}(3,d)$ for every local dimension $d \ge 2$. -/
 @[category research solved, AMS 5 15 81 94]
 theorem ame_3_exists {d : ℕ} (hd : 2 ≤ d) : ExistsAME 3 d := by
-  sorry
+  -- Agent proof
+  exact ⟨ghzState d, ghzState_isAME hd⟩
 
 /- ## A generic negative result for the GHZ family on $4$ parties -/
 
