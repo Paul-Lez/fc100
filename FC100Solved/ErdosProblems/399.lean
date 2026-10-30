@@ -73,7 +73,44 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hprod heq
+  have hn : 4 ≤ n := by
+    by_contra hn
+    have hnle : n ≤ 3 := by omega
+    have hsum : x ^ 4 + y ^ 4 ≤ 6 := by
+      interval_cases n <;> norm_num [Nat.factorial] at heq ⊢ <;> omega
+    have hxlt : x < 2 := by
+      by_contra hxlt
+      have hxge : 2 ≤ x := by omega
+      have hxpow : 2 ^ 4 ≤ x ^ 4 := by gcongr
+      norm_num at hxpow
+      omega
+    have hylt : y < 2 := by
+      by_contra hylt
+      have hyge : 2 ≤ y := by omega
+      have hypow : 2 ^ 4 ≤ y ^ 4 := by gcongr
+      norm_num at hypow
+      omega
+    interval_cases x <;> interval_cases y <;> norm_num at hprod
+  have hdiv : 8 ∣ n ! :=
+    dvd_trans (by norm_num [Nat.factorial] : 8 ∣ 4 !) (Nat.factorial_dvd_factorial hn)
+  have hmod : (x ^ 4 + y ^ 4) % 8 = 0 := by
+    rw [← heq]
+    exact Nat.dvd_iff_mod_eq_zero.mp hdiv
+  have hnotboth : ¬ (x % 2 = 0 ∧ y % 2 = 0) := by
+    rintro ⟨hx, hy⟩
+    have hdx : 2 ∣ x := Nat.dvd_iff_mod_eq_zero.mpr hx
+    have hdy : 2 ∣ y := Nat.dvd_iff_mod_eq_zero.mpr hy
+    have hdg : 2 ∣ Nat.gcd x y := Nat.dvd_gcd hdx hdy
+    have hgcd : Nat.gcd x y = 1 := hcop
+    rw [hgcd] at hdg
+    norm_num at hdg
+  have hfourth (z : ℕ) :
+      (z % 2 = 0 ∧ z ^ 4 % 8 = 0) ∨ (z % 2 = 1 ∧ z ^ 4 % 8 = 1) := by
+    have hzlt : z % 8 < 8 := Nat.mod_lt z (by norm_num)
+    interval_cases hz : z % 8 <;> norm_num [Nat.pow_mod, hz] <;> omega
+  rcases hfourth x with hx | hx <;> rcases hfourth y with hy | hy <;> omega
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if
