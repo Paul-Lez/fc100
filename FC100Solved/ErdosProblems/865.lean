@@ -53,7 +53,86 @@ there are distinct $a,b\in A$ such that $a+b\in A$, which establishes the $k=2$ 
 theorem erdos_865.variants.k2 (N : ℕ) :
     ∀ A ⊆ Icc 1 (2 * N), A.card ≥ N + 2 →
     ∃ a ∈ A, ∃ b ∈ A, a ≠ b ∧ a + b ∈ A := by
-  sorry
+  -- Agent proof
+  classical
+  intro A hsub hcard
+  by_contra hex
+  have hcardpos : 0 < A.card := by omega
+  have hAne : A.Nonempty := Finset.card_pos.mp hcardpos
+  let c := A.max' hAne
+  have hcA : c ∈ A := by
+    dsimp [c]
+    exact Finset.max'_mem A hAne
+  have hc_le : c ≤ 2 * N := (Finset.mem_Icc.mp (hsub hcA)).2
+  let f : ℕ → ℕ := fun x ↦ min x (c - x)
+  have hf_mem : ∀ x ∈ A.erase c, f x ∈ Icc 1 (c / 2) := by
+    intro x hx
+    rcases Finset.mem_erase.mp hx with ⟨hxc, hxA⟩
+    have hxle : x ≤ c := by
+      dsimp [c]
+      exact Finset.le_max' A x hxA
+    have hxlt : x < c := by omega
+    have hxone : 1 ≤ x := (Finset.mem_Icc.mp (hsub hxA)).1
+    have hxsubone : 1 ≤ c - x := by omega
+    apply Finset.mem_Icc.mpr
+    constructor
+    · exact le_min hxone hxsubone
+    · by_cases hxsmall : x ≤ c / 2
+      · exact (min_le_left x (c - x)).trans hxsmall
+      · have hsubsmall : c - x ≤ c / 2 := by omega
+        exact (min_le_right x (c - x)).trans hsubsmall
+  have hinj : Set.InjOn f ↑(A.erase c) := by
+    intro x hx y hy hxy
+    rcases Finset.mem_erase.mp hx with ⟨hxc, hxA⟩
+    rcases Finset.mem_erase.mp hy with ⟨hyc, hyA⟩
+    have hxle : x ≤ c := by
+      dsimp [c]
+      exact Finset.le_max' A x hxA
+    have hyle : y ≤ c := by
+      dsimp [c]
+      exact Finset.le_max' A y hyA
+    have hcases : x = y ∨ x + y = c := by
+      dsimp [f] at hxy
+      rcases le_total x (c - x) with hxsmall | hxlarge
+      · rw [min_eq_left hxsmall] at hxy
+        rcases le_total y (c - y) with hysmall | hylarge
+        · rw [min_eq_left hysmall] at hxy
+          exact Or.inl hxy
+        · rw [min_eq_right hylarge] at hxy
+          right
+          omega
+      · rw [min_eq_right hxlarge] at hxy
+        rcases le_total y (c - y) with hysmall | hylarge
+        · rw [min_eq_left hysmall] at hxy
+          right
+          omega
+        · rw [min_eq_right hylarge] at hxy
+          left
+          omega
+    rcases hcases with hxy | hsum
+    · exact hxy
+    · by_contra hne
+      apply hex
+      refine ⟨x, hxA, y, hyA, hne, ?_⟩
+      rw [hsum]
+      exact hcA
+  have himage : (A.erase c).image f ⊆ Icc 1 (c / 2) := by
+    intro z hz
+    rcases Finset.mem_image.mp hz with ⟨x, hx, rfl⟩
+    exact hf_mem x hx
+  have hcard_image : ((A.erase c).image f).card = (A.erase c).card :=
+    Finset.card_image_iff.mpr hinj
+  have hBupper : (A.erase c).card ≤ (Icc 1 (c / 2)).card := by
+    calc
+      (A.erase c).card = ((A.erase c).image f).card := hcard_image.symm
+      _ ≤ (Icc 1 (c / 2)).card := Finset.card_le_card himage
+  have hBupper' : (A.erase c).card ≤ c / 2 := by
+    simpa [Nat.card_Icc] using hBupper
+  have hcdiv : c / 2 ≤ N := by omega
+  have hBlower : N + 1 ≤ (A.erase c).card := by
+    rw [Finset.card_erase_of_mem hcA]
+    omega
+  omega
 
 noncomputable def f (N k : ℕ) : ℕ :=
   sInf {m | ∀ A ⊆ Icc 1 N, A.card ≥ m →

@@ -39,7 +39,12 @@ def HasSquareCondition (n : ℕ) : Prop :=
 
 @[category test, AMS 11]
 theorem hasSquareCondition_0 : HasSquareCondition 0 := by
-  sorry
+  -- Agent proof
+  unfold HasSquareCondition
+  refine ⟨0, 0, 0, 0, ?_, ?_⟩
+  · norm_num
+  · refine ⟨0, ?_⟩
+    norm_num
 
 @[category test, AMS 11]
 theorem hasSquareCondition_7 : HasSquareCondition 7 :=

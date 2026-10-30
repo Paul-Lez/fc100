@@ -43,7 +43,18 @@ theorem decidableDistinctSubsetSums_1_2 : DecidableDistinctSubsetSums {1, 2} := 
 
 @[category test, AMS 5 11]
 theorem distinctSubsetSums_1_2 : DistinctSubsetSums ({1, 2} : Set ℕ) := by
-  sorry
+  -- Agent proof
+  unfold DistinctSubsetSums
+  intro X hX Y hY hXY
+  have hX' : X ⊆ ({1, 2} : Finset ℕ) := by
+    intro x hx
+    have hx' : x ∈ ({1, 2} : Set ℕ) := hX hx
+    simpa using hx'
+  have hY' : Y ⊆ ({1, 2} : Finset ℕ) := by
+    intro y hy
+    have hy' : y ∈ ({1, 2} : Set ℕ) := hY hy
+    simpa using hy'
+  exact decidableDistinctSubsetSums_1_2 X hX' Y hY' hXY
 
 /-- Small sanity check: the two predicates are saying the same thing. -/
 @[category API, AMS 5 11]

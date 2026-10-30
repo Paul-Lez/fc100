@@ -69,7 +69,52 @@ theorem finiteAdditiveConvolution_degree (n : ℕ) (p q : ℝ[X])
 theorem finiteAdditiveConvolution_monic' (n : ℕ) (p q : ℝ[X]) (hn : 0 < n)
     (hp_deg : p.degree = n) (hq_deg : q.degree = n) (hp_monic : p.Monic) (hq_monic : q.Monic) :
     (p (⊞_n) q).Monic := by
-  sorry
+  -- Agent proof
+  have hp_ne : p ≠ 0 := by
+    intro h
+    rw [h] at hp_deg
+    simp at hp_deg
+  have hq_ne : q ≠ 0 := by
+    intro h
+    rw [h] at hq_deg
+    simp at hq_deg
+  have hp_nat : p.natDegree = n := by
+    have h := p.degree_eq_natDegree hp_ne
+    rw [hp_deg] at h
+    exact (WithBot.coe_eq_coe.mp h).symm
+  have hq_nat : q.natDegree = n := by
+    have h := q.degree_eq_natDegree hq_ne
+    rw [hq_deg] at h
+    exact (WithBot.coe_eq_coe.mp h).symm
+  have hp_coeff : p.coeff n = 1 := by
+    rw [← hp_nat]
+    exact hp_monic
+  have hq_coeff : q.coeff n = 1 := by
+    rw [← hq_nat]
+    exact hq_monic
+  have hfact : (n ! : ℝ) ≠ 0 := by positivity
+  have hsub (k : ℕ) : n - k = n ↔ k = 0 := by omega
+  have hsub' (k : ℕ) : n = n - k ↔ k = 0 := by omega
+  have hcoeff : (p (⊞_n) q).coeff n = 1 := by
+    simp [finiteAdditiveConvolution, hsub, hsub', hp_coeff, hq_coeff, hfact]
+  have hdeg : (p (⊞_n) q).degree ≤ (n : WithBot ℕ) := by
+    rw [degree_le_iff_coeff_zero]
+    intro m hm
+    have hnm : n < m := by exact_mod_cast hm
+    have hne (k : ℕ) : n - k ≠ m := by omega
+    have hne' (k : ℕ) : m ≠ n - k := by omega
+    simp [finiteAdditiveConvolution, hne, hne']
+  have hcoeff_ne : (p (⊞_n) q).coeff n ≠ 0 := by
+    rw [hcoeff]
+    norm_num
+  have hnat_le : (p (⊞_n) q).natDegree ≤ n :=
+    (natDegree_le_iff_degree_le).2 hdeg
+  have hn_le : n ≤ (p (⊞_n) q).natDegree :=
+    le_natDegree_of_ne_zero hcoeff_ne
+  have hnat : (p (⊞_n) q).natDegree = n := le_antisymm hnat_le hn_le
+  change (p (⊞_n) q).coeff (p (⊞_n) q).natDegree = 1
+  rw [hnat]
+  exact hcoeff
 
 /--
 For a monic polynomial $p(x)=\prod_{i\le n}(x- \lambda_i)$, define
