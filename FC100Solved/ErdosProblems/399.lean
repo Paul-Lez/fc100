@@ -73,7 +73,60 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hxy heq
+  by_cases hn : n < 4
+  · have hn_le : n ≤ 3 := by omega
+    have hbound : x ^ 4 + y ^ 4 ≤ 6 := by
+      rw [← heq]
+      interval_cases n <;> norm_num
+    have hxlt : x < 2 := by
+      by_contra hx
+      have hx2 : 2 ≤ x := by omega
+      have hxpow : 16 ≤ x ^ 4 := by
+        calc
+          16 = (2 : ℕ) ^ 4 := by norm_num
+          _ ≤ x ^ 4 := by gcongr
+      omega
+    have hylt : y < 2 := by
+      by_contra hy
+      have hy2 : 2 ≤ y := by omega
+      have hypow : 16 ≤ y ^ 4 := by
+        calc
+          16 = (2 : ℕ) ^ 4 := by norm_num
+          _ ≤ y ^ 4 := by gcongr
+      omega
+    interval_cases x <;> interval_cases y <;> norm_num at hxy
+  · have hn4 : 4 ≤ n := by omega
+    have hdiv : 8 ∣ n ! := by
+      have h4div : 8 ∣ 4 ! := by norm_num
+      exact dvd_trans h4div (Nat.factorial_dvd_factorial hn4)
+    have hsum_mod : (x ^ 4 + y ^ 4) % 8 = 0 := by
+      rw [← heq]
+      exact Nat.dvd_iff_mod_eq_zero.mp hdiv
+    have hpow (a : ℕ) : a ^ 4 % 8 = if a % 2 = 0 then 0 else 1 := by
+      have ha : a % 8 < 8 := Nat.mod_lt _ (by norm_num)
+      interval_cases h : a % 8 <;>
+        by_cases hp : a % 2 = 0 <;>
+          norm_num [hp, Nat.pow_succ, Nat.mul_mod, h] <;>
+          omega
+    have hx_even : x % 2 = 0 := by
+      by_contra hx
+      by_cases hy_even : y % 2 = 0
+      · have h := hsum_mod
+        simp [Nat.add_mod, hpow x, hpow y, hx, hy_even] at h
+      · have h := hsum_mod
+        simp [Nat.add_mod, hpow x, hpow y, hx, hy_even] at h
+    have hy_even : y % 2 = 0 := by
+      by_contra hy
+      have h := hsum_mod
+      simp [Nat.add_mod, hpow x, hpow y, hx_even, hy] at h
+    have hdx : 2 ∣ x := (Nat.dvd_iff_mod_eq_zero).2 hx_even
+    have hdy : 2 ∣ y := (Nat.dvd_iff_mod_eq_zero).2 hy_even
+    have hdg : 2 ∣ Nat.gcd x y := Nat.dvd_gcd hdx hdy
+    have hgcd : Nat.gcd x y = 1 := hcop
+    rw [hgcd] at hdg
+    norm_num at hdg
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if
