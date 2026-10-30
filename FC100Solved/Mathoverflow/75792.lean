@@ -147,7 +147,11 @@ theorem Reachable.complexity_eq {m n : ℕ} (h : Reachable m n)
 
 @[category test, AMS 11]
 theorem Reachable.complexity {n : ℕ} (hn : 0 < n) : Reachable n (complexity n) := by
-  sorry
+  -- Agent proof
+  unfold Mathoverflow75792.complexity
+  split
+  · omega
+  · exact Nat.find_spec _
 
 @[category test, AMS 11]
 theorem complexity_zero : complexity 0 = 0 := rfl

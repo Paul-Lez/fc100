@@ -53,7 +53,97 @@ there are distinct $a,b\in A$ such that $a+b\in A$, which establishes the $k=2$ 
 theorem erdos_865.variants.k2 (N : ℕ) :
     ∀ A ⊆ Icc 1 (2 * N), A.card ≥ N + 2 →
     ∃ a ∈ A, ∃ b ∈ A, a ≠ b ∧ a + b ∈ A := by
-  sorry
+  -- Agent proof
+  classical
+  intro A hsub hcard
+  have hApos : 0 < A.card := by omega
+  have hAne : A.Nonempty := Finset.card_pos.mp hApos
+  let c := A.max' hAne
+  have hcA : c ∈ A := by
+    dsimp [c]
+    exact Finset.max'_mem A hAne
+  have hc_le : c ≤ 2 * N := (Finset.mem_Icc.mp (hsub hcA)).2
+  let B := A.erase c
+  have hBcard : B.card = A.card - 1 := by
+    dsimp [B]
+    exact Finset.card_erase_of_mem hcA
+  have hBcard_gt : N < B.card := by omega
+  let f : ℕ → ℕ := fun x ↦ min x (c - x)
+  have hfmem : ∀ x ∈ B, f x ∈ Icc 1 N := by
+    intro x hx
+    have hxB : x ∈ A.erase c := by simpa [B] using hx
+    have hxne : x ≠ c := (Finset.mem_erase.mp hxB).1
+    have hxA : x ∈ A := (Finset.mem_erase.mp hxB).2
+    have hxlo : 1 ≤ x := (Finset.mem_Icc.mp (hsub hxA)).1
+    have hxc : x ≤ c := by
+      dsimp [c]
+      exact Finset.le_max' A x hxA
+    have hxlt : x < c := by omega
+    have hxcomp : x + (c - x) = c := by omega
+    dsimp [f]
+    rw [Finset.mem_Icc]
+    by_cases hxside : x ≤ c - x
+    · rw [min_eq_left hxside]
+      constructor
+      · exact hxlo
+      · omega
+    · have hxrev : c - x ≤ x := by omega
+      rw [min_eq_right hxrev]
+      constructor <;> omega
+  have himage : B.image f ⊆ Icc 1 N := by
+    intro z hz
+    obtain ⟨x, hx, rfl⟩ := Finset.mem_image.mp hz
+    exact hfmem x hx
+  have hTcard : (Icc 1 N).card = N := by simp
+  have hcollision : ∃ x ∈ B, ∃ y ∈ B, x ≠ y ∧ f x = f y := by
+    by_contra hn
+    have hfinj : Set.InjOn f (↑B : Set ℕ) := by
+      intro x hx y hy hxy
+      by_contra hne
+      apply hn
+      refine ⟨x, ?_, y, ?_, hne, hxy⟩
+      · simpa using hx
+      · simpa using hy
+    have himagecard : (B.image f).card = B.card :=
+      Finset.card_image_iff.mpr hfinj
+    have hle : B.card ≤ N := by
+      rw [← himagecard, ← hTcard]
+      exact Finset.card_le_card himage
+    omega
+  obtain ⟨x, hxB, y, hyB, hxy, hfxy⟩ := hcollision
+  have hxB' : x ∈ A.erase c := by simpa [B] using hxB
+  have hyB' : y ∈ A.erase c := by simpa [B] using hyB
+  have hxA : x ∈ A := (Finset.mem_erase.mp hxB').2
+  have hyA : y ∈ A := (Finset.mem_erase.mp hyB').2
+  have hxc : x ≤ c := by
+    dsimp [c]
+    exact Finset.le_max' A x hxA
+  have hyc : y ≤ c := by
+    dsimp [c]
+    exact Finset.le_max' A y hyA
+  have hxcomp : x + (c - x) = c := by omega
+  have hycomp : y + (c - y) = c := by omega
+  dsimp [f] at hfxy
+  have hsum : x + y = c := by
+    by_cases hxside : x ≤ c - x
+    · rw [min_eq_left hxside] at hfxy
+      by_cases hyside : y ≤ c - y
+      · rw [min_eq_left hyside] at hfxy
+        omega
+      · have hyrev : c - y ≤ y := by omega
+        rw [min_eq_right hyrev] at hfxy
+        omega
+    · have hxrev : c - x ≤ x := by omega
+      rw [min_eq_right hxrev] at hfxy
+      by_cases hyside : y ≤ c - y
+      · rw [min_eq_left hyside] at hfxy
+        omega
+      · have hyrev : c - y ≤ y := by omega
+        rw [min_eq_right hyrev] at hfxy
+        omega
+  refine ⟨x, hxA, y, hyA, hxy, ?_⟩
+  rw [hsum]
+  exact hcA
 
 noncomputable def f (N k : ℕ) : ℕ :=
   sInf {m | ∀ A ⊆ Icc 1 N, A.card ≥ m →
