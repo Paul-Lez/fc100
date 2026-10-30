@@ -243,7 +243,8 @@ theorem edgeBoundary_empty (n : ℕ) (p : ℝ) :
 @[category test, AMS 5]
 theorem boundaryCount_univ (n : ℕ) (S : Finset (Fin n)) :
     boundaryCount n Finset.univ S = 0 := by
-  sorry
+  -- Agent proof
+  simp [boundaryCount, Xor']
 
 /-- The edge boundary is zero for the full family. -/
 @[category test, AMS 5]
