@@ -131,6 +131,10 @@ noncomputable def prodMultiset (A : Finset ℂ) (k : ℕ) : Multiset ℂ :=
 theorem erdos_494.variants.product :
     ∃ (A B : Finset ℂ), A.card = B.card ∧ prodMultiset A 3 = prodMultiset B 3 ∧
       A ≠ B := by
-  sorry
+  -- Agent proof
+  refine ⟨{0}, {1}, ?_, ?_, ?_⟩
+  · simp
+  · simp [prodMultiset, Finset.powersetCard]
+  · simp
 
 end Erdos494
