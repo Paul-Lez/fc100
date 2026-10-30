@@ -252,7 +252,8 @@ theorem petersen_size : PetersenGraph.edgeFinset.card = 15 := by
 
 @[category test, AMS 5]
 theorem petersen_szeged : szegedIndex PetersenGraph = 135 := by
-  sorry
+  -- Agent proof
+  rw [szeged_eq_computable]; decide
 
 @[category test, AMS 5]
 theorem petersen_wiener : wienerIndex PetersenGraph = 75 := by
@@ -319,7 +320,8 @@ theorem C6_order : n C6 = 6 := by simp [n]
 
 @[category test, AMS 5]
 theorem C6_size : C6.edgeFinset.card = 6 := by
-  sorry
+  -- Agent proof
+  decide
 
 @[category test, AMS 5]
 theorem C6_szeged : szegedIndex C6 = 54 := by

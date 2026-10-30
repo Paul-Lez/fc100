@@ -227,7 +227,18 @@ private theorem eqSystem4_d2_nat :
 @[category test, AMS 5 14 81]
 theorem eqSystem4_has_solution_d2 :
     ∃ W : WeightsN 4 2 α, EqSystemN 4 2 W := by
-  sorry
+  -- Agent proof
+  refine ⟨Witness4_d2 (α := α), ?_⟩
+  intro ι
+  have h : ∀ a b c d : Fin 2,
+      pmSumN 4 2 (W := Witness4_d2 (α := α)) ![a, b, c, d] =
+        (if allEqual ![a, b, c, d] then (1 : α) else (0 : α)) := by
+    intro a b c d
+    fin_cases a <;> fin_cases b <;> fin_cases c <;> fin_cases d <;>
+      simp [pmSumN, pmSumList, pmSumListAux, vertices,
+        allEqual, allEqualList, Witness4_d2, mkEdge]
+  have hι : ι = ![ι 0, ι 1, ι 2, ι 3] := by funext k; fin_cases k <;> simp
+  rw [hι]; exact h (ι 0) (ι 1) (ι 2) (ι 3)
 
 end N4_D2
 

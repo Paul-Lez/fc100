@@ -38,7 +38,10 @@ def a (k : ℕ) : Prop :=
 /-- $1$ is in the sequence A067720. -/
 @[category test, AMS 11]
 theorem a_1 : a 1 := by
-  sorry
+  -- Agent proof
+  unfold a
+  rfl
+  
 
 /-- $2$ is in the sequence A067720. -/
 @[category test, AMS 11]

@@ -68,6 +68,32 @@ $$\frac{1}{2}-\frac{1}{3}-\frac{1}{4}=-\frac{1}{12}.$$
 theorem erdos_317.variants.counterexample : ¬ (∀  δ : (Fin 4) → ℚ, δ '' Set.univ ⊆ {-1,0,1} →
     letI lhs := |∑ k, ((δ k : ℚ) / (k + 1))|
     lhs ≠ 0 → lhs > (1 : ℚ) / ((Icc 1 4).lcm id : ℕ)) := by
-  sorry
+  -- Agent proof
+  intro h
+  let δ : Fin 4 → ℚ := fun k => match k with
+    | 0 => 0
+    | 1 => 1
+    | 2 => -1
+    | 3 => -1
+  have h_range : δ '' Set.univ ⊆ ({-1, 0, 1} : Set ℚ) := by
+    intro x hx
+    rcases hx with ⟨k, _, rfl⟩
+    fin_cases k <;> unfold δ <;> simp
+  have h_apply := h δ h_range
+  have h_sum : (|∑ k, ((δ k : ℚ) / (k + 1 : ℚ))|) = (1/12 : ℚ) := by
+    unfold δ
+    have huniv : (Finset.univ : Finset (Fin 4)) = {0, 1, 2, 3} := by decide
+    rw [huniv]
+    simp [Finset.sum_insert]
+    norm_num
+  have h_ne_zero : (|∑ k, ((δ k : ℚ) / (k + 1 : ℚ))|) ≠ 0 := by
+    rw [h_sum]
+    norm_num
+  have h_not_gt : ¬ ((|∑ k, ((δ k : ℚ) / (k + 1 : ℚ))|) > (1 : ℚ) / ((Icc 1 4).lcm id : ℕ)) := by
+    rw [h_sum]
+    have hlcm : (Icc 1 4).lcm id = 12 := by decide
+    rw [hlcm]
+    norm_num
+  exact h_not_gt (h_apply h_ne_zero)
 
 end Erdos317

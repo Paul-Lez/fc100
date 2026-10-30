@@ -169,7 +169,239 @@ theorem maximalLength_le (n : ℕ) : F n ≤ n ^ 2 := by
 @[category research solved, AMS 5]
 theorem maximalLength_ge_of_isSquare {n : ℕ} (h : IsSquare n) :
     n.sqrt ^ 3 ≤ F n := by
-  sorry
+  -- Agent proof
+  rcases h with ⟨m, hm⟩
+  have hsq : n.sqrt = m := by
+    rw [hm, Nat.sqrt_eq]
+  rw [hsq]
+  by_cases hmz : m = 0
+  · rw [hmz]
+    simp [maximalLength_zero, maximalLength]
+  have hm_pos : 0 < m := Nat.pos_of_ne_zero hmz
+  set φ := λ (i j : ℕ) => (i-1)*m + j with hφ
+  set T := λ (a b c : ℕ) (i : Fin 3) => 
+    match i with
+    | 0 => φ a b
+    | 1 => φ a c
+    | 2 => φ b c
+  with hT
+  let range_m := (List.range m).map (· + 1)
+  have hlen_range_m : range_m.length = m := by
+    simp [range_m]
+  let s : List (Fin 3 → ℕ) := 
+    List.flatMap (λ a =>
+      List.flatMap (λ b =>
+        List.map (λ c => T a b c) range_m) range_m) range_m
+  have hlen : s.length = m ^ 3 := by
+    dsimp [s]
+    rw [List.length_flatMap]
+    simp_rw [List.length_flatMap]
+    simp [hlen_range_m]
+    rw [Nat.pow_succ, Nat.pow_two]
+    simp [Nat.mul_comm]
+  have hrange : ∀ a ∈ s, Set.range a ⊆ Set.Icc 1 n := by
+    intro a ha
+    rintro y ⟨i, rfl⟩
+    have ha_mem : a ∈ s := ha
+    rcases List.mem_flatMap.1 ha_mem with ⟨a0, ha0, ha'⟩
+    rcases List.mem_flatMap.1 ha' with ⟨b0, hb0, ha''⟩
+    rcases List.mem_map.1 ha'' with ⟨c0, hc0, rfl⟩
+    have ha0_range : a0 ∈ range_m := ha0
+    have hb0_range : b0 ∈ range_m := hb0
+    have hc0_range : c0 ∈ range_m := hc0
+    rw [List.mem_map] at ha0_range hb0_range hc0_range
+    rcases ha0_range with ⟨a0', ha0', rfl⟩
+    rcases hb0_range with ⟨b0', hb0', rfl⟩
+    rcases hc0_range with ⟨c0', hc0', rfl⟩
+    have ha0_lt_m : a0' < m := by
+      have := List.mem_range.1 ha0'
+      omega
+    have hb0_lt_m : b0' < m := by
+      have := List.mem_range.1 hb0'
+      omega
+    have hc0_lt_m : c0' < m := by
+      have := List.mem_range.1 hc0'
+      omega
+    fin_cases i <;> dsimp [T, φ]
+    · have hlo : 1 ≤ a0'*m + (b0'+1) := by omega
+      have hhi : a0'*m + (b0'+1) ≤ n := by
+        rw [hm]
+        nlinarith
+      exact ⟨hlo, hhi⟩
+    · have hlo : 1 ≤ a0'*m + (c0'+1) := by omega
+      have hhi : a0'*m + (c0'+1) ≤ n := by
+        rw [hm]
+        nlinarith
+      exact ⟨hlo, hhi⟩
+    · have hlo : 1 ≤ b0'*m + (c0'+1) := by omega
+      have hhi : b0'*m + (c0'+1) ≤ n := by
+        rw [hm]
+        nlinarith
+      exact ⟨hlo, hhi⟩
+  have hisinc : IsIncreasing₂ s := by
+    rw [IsIncreasing₂]
+    dsimp [s]
+    rw [List.pairwise_flatMap]
+    have h_get_val : ∀ (k : ℕ) (hk : k < range_m.length), range_m[k] = k + 1 := by
+      intro k hk; simp [range_m]
+    constructor
+    · intro a ha
+      rw [List.pairwise_flatMap]
+      constructor
+      · intro b hb
+        rw [List.pairwise_map]
+        rw [List.pairwise_iff_getElem]
+        intro i j hi hj hlt
+        dsimp [T]
+        refine ⟨1, 2, by simp, ?_, ?_⟩
+        · dsimp [φ]; simp [h_get_val i hi, h_get_val j hj]; omega
+        · dsimp [φ]; simp [h_get_val i hi, h_get_val j hj]; omega
+      · rw [List.pairwise_iff_getElem]
+        intro i j hi hj hlt
+        intro x hx y hy
+        rcases List.mem_map.1 hx with ⟨c₁, hc₁, hx_eq⟩
+        rcases List.mem_map.1 hy with ⟨c₂, hc₂, hy_eq⟩
+        rw [← hx_eq, ← hy_eq]
+        dsimp [T]
+        refine ⟨0, 2, by simp, ?_, ?_⟩
+        · dsimp [φ]; simp [h_get_val i hi, h_get_val j hj]; omega
+        · dsimp [φ]
+          simp [h_get_val i hi, h_get_val j hj]
+          have hi_lt_j : i < j := hlt
+          have hc₁_le_m : c₁ ≤ m := by
+            have : c₁ ∈ range_m := hc₁
+            rw [List.mem_map] at this
+            rcases this with ⟨c₁', hc₁', rfl⟩
+            have hc₁'_lt_m : c₁' < m := List.mem_range.1 hc₁'
+            omega
+          have hc₂_ge_1 : 1 ≤ c₂ := by
+            have : c₂ ∈ range_m := hc₂
+            rw [List.mem_map] at this
+            rcases this with ⟨c₂', hc₂', rfl⟩
+            omega
+          have h1 : i*m + c₁ < (i+1)*m + 1 := by
+            nlinarith
+          have h2 : (i+1)*m + 1 ≤ j*m + 1 := by
+            have h_le : i+1 ≤ j := by omega
+            nlinarith
+          have h3 : j*m + 1 ≤ j*m + c₂ := by omega
+          omega
+    · rw [List.pairwise_iff_getElem]
+      intro i j hi hj hlt
+      intro x hx y hy
+      rcases List.mem_flatMap.1 hx with ⟨b₁, hb₁, hx'⟩
+      rcases List.mem_flatMap.1 hy with ⟨b₂, hb₂, hy'⟩
+      rcases List.mem_map.1 hx' with ⟨c₁, hc₁, hx_eq⟩
+      rcases List.mem_map.1 hy' with ⟨c₂, hc₂, hy_eq⟩
+      rw [← hx_eq, ← hy_eq]
+      dsimp [T]
+      refine ⟨0, 1, by simp, ?_, ?_⟩
+      · dsimp [φ]
+        have hi_eq := h_get_val i hi
+        have hj_eq := h_get_val j hj
+        have hb₁_le_m : b₁ ≤ m := by
+          rw [List.mem_map] at hb₁
+          rcases hb₁ with ⟨b₁', hb₁', rfl⟩
+          have hb₁'_lt_m : b₁' < m := List.mem_range.1 hb₁'
+          omega
+        have hb₂_ge_1 : 1 ≤ b₂ := by
+          rw [List.mem_map] at hb₂
+          rcases hb₂ with ⟨b₂', hb₂', rfl⟩
+          omega
+        have hgoal : i*m + b₁ < j*m + b₂ := by
+          have h1 : i*m + b₁ ≤ i*m + m := Nat.add_le_add_left hb₁_le_m (i*m)
+          have h2 : i*m + m = (i+1)*m := (Nat.succ_mul i m).symm
+          have h3 : (i+1)*m ≤ j*m := Nat.mul_le_mul_right m (by omega)
+          have h4 : j*m < j*m + b₂ := by omega
+          omega
+        rw [hi_eq, hj_eq]
+        have h_simp_i : (i+1)-1 = i := by omega
+        have h_simp_j : (j+1)-1 = j := by omega
+        simpa [h_simp_i, h_simp_j] using hgoal
+      · dsimp [φ]
+        have hi_eq := h_get_val i hi
+        have hj_eq := h_get_val j hj
+        have hc₁_le_m : c₁ ≤ m := by
+          rw [List.mem_map] at hc₁
+          rcases hc₁ with ⟨c₁', hc₁', rfl⟩
+          have hc₁'_lt_m : c₁' < m := List.mem_range.1 hc₁'
+          omega
+        have hc₂_ge_1 : 1 ≤ c₂ := by
+          rw [List.mem_map] at hc₂
+          rcases hc₂ with ⟨c₂', hc₂', rfl⟩
+          omega
+        have hgoal : i*m + c₁ < j*m + c₂ := by
+          have h1 : i*m + c₁ ≤ i*m + m := Nat.add_le_add_left hc₁_le_m (i*m)
+          have h2 : i*m + m = (i+1)*m := (Nat.succ_mul i m).symm
+          have h3 : (i+1)*m ≤ j*m := Nat.mul_le_mul_right m (by omega)
+          have h4 : j*m < j*m + c₂ := by omega
+          omega
+        rw [hi_eq, hj_eq]
+        have h_simp_i : (i+1)-1 = i := by omega
+        have h_simp_j : (j+1)-1 = j := by omega
+        simpa [h_simp_i, h_simp_j] using hgoal
+  have hmem : s.length ∈ { List.length s' | (s') (_ : ∀ a ∈ s', Set.range a ⊆ Set.Icc 1 n) (_ : IsIncreasing₂ s') } := by
+    refine ⟨s, hrange, hisinc, rfl⟩
+  have hbdd : BddAbove { List.length s' | (s') (_ : ∀ a ∈ s', Set.range a ⊆ Set.Icc 1 n) (_ : IsIncreasing₂ s') } := by
+    refine ⟨n^3, ?_⟩
+    rintro len ⟨s', hrange', hisinc', rfl⟩
+    have h_nodup : s'.Nodup := by
+      rw [List.nodup_iff_injective_getElem]
+      intro i j h_eq
+      have h_get_eq : s'.get i = s'.get j := by simpa using h_eq
+      by_cases h_val_eq : i.val = j.val
+      · exact Fin.ext h_val_eq
+      · have h_lt_or : i.val < j.val ∨ j.val < i.val := Nat.lt_or_gt_of_ne h_val_eq
+        rcases h_lt_or with (hlt | hlt)
+        · have hlt' : i < j := by
+            rw [Fin.mk_lt_mk]
+            exact hlt
+          have hlt₂ := List.Pairwise.rel_get_of_lt hisinc' hlt'
+          rw [h_get_eq] at hlt₂
+          exact (not_lt₂_self _ hlt₂).elim
+        · have hlt' : j < i := by
+            rw [Fin.mk_lt_mk]
+            exact hlt
+          have hlt₂ := List.Pairwise.rel_get_of_lt hisinc' hlt'
+          rw [h_get_eq] at hlt₂
+          exact (not_lt₂_self _ hlt₂).elim
+    let S : Finset (ℕ × ℕ × ℕ) := (Finset.Icc 1 n) ×ˢ (Finset.Icc 1 n) ×ˢ (Finset.Icc 1 n)
+    have hS_card : S.card = n^3 := by
+      simp [S, Finset.card_product, Nat.card_Icc]
+      rw [Nat.pow_succ, Nat.pow_two]
+      simp [Nat.mul_comm]
+    let f : (Fin 3 → ℕ) → ℕ × ℕ × ℕ := λ g => (g 0, g 1, g 2)
+    have h_inj : Function.Injective f := by
+      intro g₁ g₂ h
+      ext i
+      fin_cases i
+      · exact congrArg (λ p => p.1) h
+      · exact congrArg (λ p => p.2.1) h
+      · exact congrArg (λ p => p.2.2) h
+    let image_set : Finset (ℕ × ℕ × ℕ) := s'.toFinset.image f
+    have h_image_sub : image_set ⊆ S := by
+      intro p hp
+      rcases Finset.mem_image.1 hp with ⟨g, hg, rfl⟩
+      have hg' := hrange' g (by
+        rw [List.mem_toFinset] at hg
+        exact hg)
+      have h0 := hg' (Set.mem_range_self 0)
+      have h1 := hg' (Set.mem_range_self 1)
+      have h2 := hg' (Set.mem_range_self 2)
+      rcases h0 with ⟨h0l, h0u⟩
+      rcases h1 with ⟨h1l, h1u⟩
+      rcases h2 with ⟨h2l, h2u⟩
+      dsimp [S, f]
+      simp [Finset.mem_product, Finset.mem_Icc, h0l, h0u, h1l, h1u, h2l, h2u]
+    have h_card_image : image_set.card = s'.length := by
+      rw [← List.toFinset_card_of_nodup h_nodup]
+      exact Finset.card_image_of_injective _ h_inj
+    have h_card_S : image_set.card ≤ S.card := Finset.card_le_card h_image_sub
+    rw [h_card_image, hS_card] at h_card_S
+    exact h_card_S
+  have hle := le_csSup hbdd hmem
+  rw [hlen] at hle
+  exact hle
 
 /-- Two triples $t_1$ and $t_2$ are $2$-comparable if one of them is $2$-less
 than the other. -/
@@ -195,7 +427,8 @@ def tripleProduct {α : Type*} (a b : Fin 3 → α) : Πₗ (_ : Fin 3), α × �
 @[simp, category API, AMS 5]
 theorem tripleProduct_const {α : Type*} (a : α) :
     tripleProduct (fun _ => a) (fun _ => a) = toLex (fun _ => (a, a)) := by
-  sorry
+  -- Agent proof
+  rfl
 
 @[simp, category API, AMS 5]
 theorem tripleProduct_vecConst_const {α : Type*} (a : α) :

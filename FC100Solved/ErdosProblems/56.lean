@@ -65,7 +65,34 @@ theorem maxWeaklyDivisible_zero : ∀ k : ℕ, MaxWeaklyDivisible 0 k = 0 := by
 
 @[category test, AMS 11]
 theorem maxWeaklyDivisible_one {k : ℕ} (hk : k ≠ 0) : MaxWeaklyDivisible 1 k = 1 := by
-  sorry
+  -- Agent proof
+  have h_singleton : WeaklyDivisible k ({1} : Finset ℕ) := weaklyDivisible_singleton hk 1
+  have h_empty : WeaklyDivisible k (∅ : Finset ℕ) := weaklyDivisible_empty k
+  dsimp [MaxWeaklyDivisible]
+  have h_upper_bound : ∀ x, x ∈ {#A | (A : Finset ℕ) (_ : A ⊆ Finset.Icc 1 1) (_ : WeaklyDivisible k A)} → x ≤ 1 := by
+    intro x hx
+    rcases hx with ⟨A, hA_sub, hA_wd, rfl⟩
+    have hIcc : Finset.Icc (1 : ℕ) 1 = {1} := by decide
+    have hA_sub_singleton : A ⊆ ({1} : Finset ℕ) := by
+      rw [hIcc] at hA_sub
+      exact hA_sub
+    have h_card_le : A.card ≤ ({1} : Finset ℕ).card := Finset.card_le_card hA_sub_singleton
+    simpa using h_card_le
+  have h_nonempty : ({#A | (A : Finset ℕ) (_ : A ⊆ Finset.Icc 1 1) (_ : WeaklyDivisible k A)} : Set ℕ).Nonempty := by
+    refine ⟨0, ?_⟩
+    exact ⟨∅, by simp, h_empty, by simp⟩
+  have h_bdd : BddAbove ({#A | (A : Finset ℕ) (_ : A ⊆ Finset.Icc 1 1) (_ : WeaklyDivisible k A)} : Set ℕ) := by
+    refine ⟨1, ?_⟩
+    intro x hx
+    exact h_upper_bound x hx
+  apply le_antisymm
+  · apply csSup_le h_nonempty
+    intro x hx
+    exact h_upper_bound x hx
+  · apply le_csSup h_bdd
+    refine ⟨{1}, ?_, h_singleton, ?_⟩
+    · simp
+    · simp
 
 @[category test, AMS 11]
 theorem maxWeaklyDivisible_zero_k (N : ℕ) : MaxWeaklyDivisible N 0 = 0 := by

@@ -123,7 +123,103 @@ lemma lemma2_d
     2 * n * n + 4 * n + 2 ≤
       (∑ i ∈ .Icc (2 * n + 2) (4 * n + 3), d i) -
         ∑ i ∈ .Icc 1 (2 * n + 1), d i := by
-  sorry
+  -- Agent proof
+  have h_bound (k : ℕ) : d k + (n + 1) ≤ d (k + 2 * n + 2) := by
+    have h := lemma1_b d k (n + 1) h_mono h_no_three
+    have h_simp : n + 1 ≤ d (k + 2 * n + 2) - d k := by
+      have h_eq : k + 2 * (n + 1) = k + 2 * n + 2 := by omega
+      simpa [h_eq] using h
+    have hle : d k ≤ d (k + 2 * n + 2) := h_mono (by omega)
+    have h_sub : d (k + 2 * n + 2) - d k + d k = d (k + 2 * n + 2) := Nat.sub_add_cancel hle
+    have hineq : (n + 1) + d k ≤ d (k + 2 * n + 2) := by
+      calc
+        (n + 1) + d k ≤ (d (k + 2 * n + 2) - d k) + d k := Nat.add_le_add_right h_simp (d k)
+        _ = d (k + 2 * n + 2) := h_sub
+    omega
+  have h_d2n2 : n + 2 ≤ d (2 * n + 2) := by
+    have h := lemma1_b d 0 (n + 1) h_mono h_no_three
+    have h_simp : n + 1 ≤ d (2 * n + 2) - d 0 := by
+      have h_eq : 0 + 2 * (n + 1) = 2 * n + 2 := by omega
+      simpa [h_eq] using h
+    have hle : d 0 ≤ d (2 * n + 2) := h_mono (by omega)
+    have h_sub : d (2 * n + 2) - d 0 + d 0 = d (2 * n + 2) := Nat.sub_add_cancel hle
+    have hineq : (n + 1) + d 0 ≤ d (2 * n + 2) := by
+      calc
+        (n + 1) + d 0 ≤ (d (2 * n + 2) - d 0) + d 0 := Nat.add_le_add_right h_simp (d 0)
+        _ = d (2 * n + 2) := h_sub
+    have hpos0 : 0 < d 0 := h_pos 0
+    omega
+  have h_sum_ineq : (∑ k ∈ Finset.Icc 1 (2 * n + 1), d k) + (2 * n + 1) * (n + 1) ≤
+      (∑ k ∈ Finset.Icc 1 (2 * n + 1), d (k + 2 * n + 2)) := by
+    refine le_trans ?_ (Finset.sum_le_sum fun k hk => h_bound k)
+    apply le_of_eq
+    simp [Finset.sum_add_distrib]
+  have h_reindex : (∑ k ∈ Finset.Icc 1 (2 * n + 1), d (k + 2 * n + 2)) =
+      (∑ i ∈ Finset.Icc (2 * n + 3) (4 * n + 3), d i) := by
+    apply Finset.sum_nbij' (fun k => k + 2 * n + 2) (fun i => i - (2 * n + 2))
+    · intro k hk
+      rw [Finset.mem_Icc] at hk ⊢
+      rcases hk with ⟨hlo, hhi⟩
+      constructor
+      · omega
+      · omega
+    · intro i hi
+      rw [Finset.mem_Icc] at hi ⊢
+      rcases hi with ⟨hlo, hhi⟩
+      have h_lo : 1 ≤ i - (2 * n + 2) := by
+        apply (Nat.le_sub_iff_add_le (by omega : 2 * n + 2 ≤ i)).mpr
+        omega
+      have h_hi : i - (2 * n + 2) ≤ 2 * n + 1 := by
+        apply le_trans (Nat.sub_le_sub_right hhi (2 * n + 2)) ?_
+        omega
+      exact ⟨h_lo, h_hi⟩
+    · intro k hk
+      omega
+    · intro i hi
+      rw [Finset.mem_Icc] at hi
+      rcases hi with ⟨hlo, hhi⟩
+      omega
+    · intro k hk; rfl
+  have h_total : (∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) + (2 * n * n + 4 * n + 2) ≤
+      (∑ i ∈ Finset.Icc (2 * n + 2) (4 * n + 3), d i) := by
+    have h_split : (∑ i ∈ Finset.Icc (2 * n + 2) (4 * n + 3), d i) =
+        d (2 * n + 2) + (∑ i ∈ Finset.Icc (2 * n + 3) (4 * n + 3), d i) := by
+      have h_insert : Finset.Icc (2 * n + 2) (4 * n + 3) =
+          insert (2 * n + 2) (Finset.Icc (2 * n + 3) (4 * n + 3)) := by
+        ext i; simp; omega
+      rw [h_insert, Finset.sum_insert (by
+        intro h; rw [Finset.mem_Icc] at h; omega)]
+    rw [h_split]
+    have h_sum' : (∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) + (2 * n + 1) * (n + 1) ≤
+        (∑ i ∈ Finset.Icc (2 * n + 3) (4 * n + 3), d i) := by
+      rw [← h_reindex]
+      exact h_sum_ineq
+    have h_arith : 2 * n * n + 4 * n + 2 ≤ (n + 2) + (2 * n + 1) * (n + 1) := by
+      have h_eq : (n + 2) + (2 * n + 1) * (n + 1) = 2 * n * n + 4 * n + 3 := by ring
+      rw [h_eq]
+      omega
+    calc
+      (∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) + (2 * n * n + 4 * n + 2)
+          ≤ (∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) + ((n + 2) + (2 * n + 1) * (n + 1)) :=
+        Nat.add_le_add_left h_arith _
+      _ = ((∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) + (n + 2)) + (2 * n + 1) * (n + 1) := by
+        simp [add_assoc]
+      _ ≤ ((∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) + d (2 * n + 2)) + (2 * n + 1) * (n + 1) := by
+        have h := Nat.add_le_add_right h_d2n2 ((2 * n + 1) * (n + 1))
+        have h' := Nat.add_le_add_left h (∑ i ∈ Finset.Icc 1 (2 * n + 1), d i)
+        simpa [add_comm, add_left_comm, add_assoc] using h'
+      _ = (d (2 * n + 2) + (∑ i ∈ Finset.Icc 1 (2 * n + 1), d i)) + (2 * n + 1) * (n + 1) := by
+        simp [add_comm, add_assoc]
+      _ = d (2 * n + 2) + ((∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) + (2 * n + 1) * (n + 1)) := by
+        simp [add_assoc]
+      _ ≤ d (2 * n + 2) + (∑ i ∈ Finset.Icc (2 * n + 3) (4 * n + 3), d i) :=
+        Nat.add_le_add_left h_sum' _
+  have h_sum_le : (∑ i ∈ Finset.Icc 1 (2 * n + 1), d i) ≤
+      (∑ i ∈ Finset.Icc (2 * n + 2) (4 * n + 3), d i) :=
+    le_trans (Nat.le_add_right _ _) h_total
+  apply ((Nat.le_sub_iff_add_le h_sum_le).mpr ?_)
+  simpa [add_comm] using h_total
+  
 
 end DegreeSequencesTriangleFree
 

@@ -40,7 +40,12 @@ def PrimeCondition (n : ℕ) : Prop :=
 
 @[category test, AMS 11]
 theorem primeCondition_8 : PrimeCondition 8 := by
-  sorry
+  -- Agent proof
+  refine ⟨3, 5, ?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
+  · decide
 
 @[category test, AMS 11]
 theorem primeCondition_53 : PrimeCondition 53 :=

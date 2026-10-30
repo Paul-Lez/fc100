@@ -209,7 +209,16 @@ collects the scalar factor as $\overline{a} a$. -/
 @[category API, AMS 5 15 81 94]
 lemma star_smul_mul_smul (a : ℂ) (A B : Matrix (Fin 2) (Fin 2) ℂ) :
     star (a • A) * (a • B) = (star a * a) • (star A * B) := by
-  sorry
+  -- Agent proof
+  calc
+    star (a • A) * (a • B) = ((star a) • (star A)) * (a • B) := by
+      simp
+    _ = (star a) • ((star A) * (a • B)) := by
+      rw [smul_mul_assoc]
+    _ = (star a) • (a • ((star A) * B)) := by
+      rw [mul_smul_comm]
+    _ = ((star a) * a) • ((star A) * B) := by
+      rw [smul_smul]
 
 /-- The relative product of two phase matrices has the expected $2 \times 2$ form. -/
 @[category API, AMS 5 15 81 94]
@@ -388,7 +397,15 @@ lemma relativeUnitary_apply_zero_zero (U V : UMat 2) :
 @[category API, AMS 5 15 81 94]
 lemma firstCol_normSq (U : UMat 2) :
     Complex.normSq (u0 U) + Complex.normSq (u1 U) = 1 := by
-  sorry
+  -- Agent proof
+  have hU := (Matrix.mem_unitaryGroup_iff'.mp U.property)
+  have h_entry : (star (U : Matrix (Fin 2) (Fin 2) ℂ) * (U : Matrix (Fin 2) (Fin 2) ℂ)) 0 0 = (1 : ℂ) := by
+    simpa using congrArg (fun M : Matrix (Fin 2) (Fin 2) ℂ => M 0 0) hU
+  have h_expand : (star (U : Matrix (Fin 2) (Fin 2) ℂ) * (U : Matrix (Fin 2) (Fin 2) ℂ)) 0 0 =
+      (Complex.normSq (u0 U) : ℂ) + (Complex.normSq (u1 U) : ℂ) := by
+    simp [u0, u1, Matrix.mul_apply, Fin.sum_univ_two, Complex.normSq_eq_conj_mul_self]
+  rw [h_expand] at h_entry
+  exact_mod_cast h_entry
 
 /-- The real part of $z \overline{w}$ is the Euclidean dot product of the coordinate pairs of
 `z` and `w`. -/
