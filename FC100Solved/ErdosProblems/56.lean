@@ -65,7 +65,24 @@ theorem maxWeaklyDivisible_zero : ∀ k : ℕ, MaxWeaklyDivisible 0 k = 0 := by
 
 @[category test, AMS 11]
 theorem maxWeaklyDivisible_one {k : ℕ} (hk : k ≠ 0) : MaxWeaklyDivisible 1 k = 1 := by
-  sorry
+  -- Agent proof
+  have hset :
+      {#A | (A : Finset ℕ) (_ : A ⊆ Finset.Icc 1 1) (_ : WeaklyDivisible k A)} =
+        {0, 1} := by
+    ext n
+    constructor
+    · rintro ⟨A, hA, _, rfl⟩
+      simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
+      have hc : A.card ≤ 1 := by
+        simpa using Finset.card_le_card hA
+      omega
+    · intro hn
+      simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hn
+      rcases hn with rfl | rfl
+      · exact ⟨∅, by simp, weaklyDivisible_empty k, by simp⟩
+      · exact ⟨{1}, by simp, weaklyDivisible_singleton hk 1, by simp⟩
+  rw [MaxWeaklyDivisible, hset]
+  norm_num [Nat.sSup_def]
 
 @[category test, AMS 11]
 theorem maxWeaklyDivisible_zero_k (N : ℕ) : MaxWeaklyDivisible N 0 = 0 := by

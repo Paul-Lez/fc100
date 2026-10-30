@@ -73,7 +73,61 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hxy heq
+  have hxpos : 0 < x := by
+    by_contra hx
+    have hxzero : x = 0 := by omega
+    subst x
+    norm_num at hxy
+  have hypos : 0 < y := by
+    by_contra hy
+    have hyzero : y = 0 := by omega
+    subst y
+    norm_num at hxy
+  have hlarge : 2 ≤ x ∨ 2 ≤ y := by
+    by_contra h
+    push_neg at h
+    have hxone : x = 1 := by omega
+    have hyone : y = 1 := by omega
+    subst x
+    subst y
+    norm_num at hxy
+  by_cases hn : n < 4
+  · interval_cases n <;> norm_num [Nat.factorial] at heq
+    all_goals
+      rcases hlarge with hx | hy
+      · have hxpow : 2 ^ 4 ≤ x ^ 4 := Nat.pow_le_pow_left hx 4
+        norm_num at hxpow
+        omega
+      · have hypow : 2 ^ 4 ≤ y ^ 4 := Nat.pow_le_pow_left hy 4
+        norm_num at hypow
+        omega
+  · have hn4 : 4 ≤ n := by omega
+    have h8 : 8 ∣ 4 ! := by norm_num [Nat.factorial]
+    have hdiv : 8 ∣ n ! :=
+      dvd_trans h8 (Nat.factorial_dvd_factorial hn4)
+    have hmod : (x ^ 4 + y ^ 4) % 8 = 0 := by
+      rw [← heq]
+      exact Nat.mod_eq_zero_of_dvd hdiv
+    have hodd : x % 2 = 1 ∨ y % 2 = 1 := by
+      have hxlt : x % 2 < 2 := Nat.mod_lt _ (by norm_num)
+      have hylt : y % 2 < 2 := Nat.mod_lt _ (by norm_num)
+      by_contra h
+      push_neg at h
+      have hxzero : x % 2 = 0 := by omega
+      have hyzero : y % 2 = 0 := by omega
+      have hxdvd : 2 ∣ x := Nat.dvd_of_mod_eq_zero hxzero
+      have hydvd : 2 ∣ y := Nat.dvd_of_mod_eq_zero hyzero
+      have hd : 2 ∣ Nat.gcd x y := Nat.dvd_gcd hxdvd hydvd
+      rw [hcop] at hd
+      norm_num at hd
+    have hx8 : x % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    have hy8 : y % 8 < 8 := Nat.mod_lt _ (by norm_num)
+    interval_cases hxv : x % 8 <;>
+      interval_cases hyv : y % 8 <;>
+        norm_num [Nat.add_mod, Nat.pow_mod, hxv, hyv] at hmod <;>
+          omega
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if

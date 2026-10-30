@@ -83,7 +83,16 @@ theorem isLychrel10_196 : answer(sorry) ↔ IsLychrel10 196 := by
 theorem eventually_palindrome_base10 :
     (∀ n : ℕ, 0 < n → ∃ k : ℕ, IsPalindrome10 (lychrelStep^[k] n)) ↔
       (∀ n : ℕ, 0 < n → ¬ IsLychrel10 n) := by
-  sorry
+  -- Agent proof
+  constructor
+  · intro h n hn hL
+    obtain ⟨k, hk⟩ := h n hn
+    exact hL k hk
+  · intro h n hn
+    have hL := h n hn
+    rw [IsLychrel10] at hL
+    push_neg at hL
+    exact hL
 
 
 /-- Sanity check: digit reversal of `120` is `21`. -/
