@@ -388,7 +388,14 @@ lemma relativeUnitary_apply_zero_zero (U V : UMat 2) :
 @[category API, AMS 5 15 81 94]
 lemma firstCol_normSq (U : UMat 2) :
     Complex.normSq (u0 U) + Complex.normSq (u1 U) = 1 := by
-  sorry
+  -- Agent proof
+  have hU : star (U : Matrix (Fin 2) (Fin 2) ℂ) * (U : Matrix (Fin 2) (Fin 2) ℂ) = 1 :=
+    (Matrix.mem_unitaryGroup_iff').mp U.property
+  have hentry : star (u0 U) * u0 U + star (u1 U) * u1 U = 1 := by
+    simpa [u0, u1, Matrix.mul_apply, Fin.sum_univ_two] using
+      congrFun (congrFun hU 0) 0
+  have hreal := congrArg Complex.re hentry
+  simpa [Complex.normSq, Complex.mul_re, Complex.conj_re, Complex.conj_im] using hreal
 
 /-- The real part of $z \overline{w}$ is the Euclidean dot product of the coordinate pairs of
 `z` and `w`. -/

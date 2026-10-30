@@ -43,7 +43,15 @@ theorem decidableDistinctSubsetSums_1_2 : DecidableDistinctSubsetSums {1, 2} := 
 
 @[category test, AMS 5 11]
 theorem distinctSubsetSums_1_2 : DistinctSubsetSums ({1, 2} : Set ℕ) := by
-  sorry
+  -- Agent proof
+  rw [DistinctSubsetSums]
+  rintro X hX Y hY hXY
+  apply decidableDistinctSubsetSums_1_2
+  · intro x hx
+    simpa using hX hx
+  · intro x hx
+    simpa using hY hx
+  · exact hXY
 
 /-- Small sanity check: the two predicates are saying the same thing. -/
 @[category API, AMS 5 11]

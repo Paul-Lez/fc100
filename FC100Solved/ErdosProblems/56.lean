@@ -65,7 +65,24 @@ theorem maxWeaklyDivisible_zero : ∀ k : ℕ, MaxWeaklyDivisible 0 k = 0 := by
 
 @[category test, AMS 11]
 theorem maxWeaklyDivisible_one {k : ℕ} (hk : k ≠ 0) : MaxWeaklyDivisible 1 k = 1 := by
-  sorry
+  -- Agent proof
+  unfold MaxWeaklyDivisible
+  apply le_antisymm
+  · refine csSup_le ?_ ?_
+    · refine ⟨0, ?_⟩
+      refine ⟨∅, ?_, ?_, ?_⟩
+      · simp
+      · exact weaklyDivisible_empty k
+      · simp
+    · rintro _ ⟨A, hA, hW, rfl⟩
+      simpa using Finset.card_le_card hA
+  · refine le_csSup ?_ ?_
+    · refine ⟨1, ?_⟩
+      rintro _ ⟨A, hA, hW, rfl⟩
+      simpa using Finset.card_le_card hA
+    · refine ⟨{1}, ?_, weaklyDivisible_singleton hk 1, ?_⟩
+      · simp
+      · simp
 
 @[category test, AMS 11]
 theorem maxWeaklyDivisible_zero_k (N : ℕ) : MaxWeaklyDivisible N 0 = 0 := by
