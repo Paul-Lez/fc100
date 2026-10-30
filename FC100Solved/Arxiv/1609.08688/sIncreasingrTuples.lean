@@ -195,7 +195,8 @@ def tripleProduct {α : Type*} (a b : Fin 3 → α) : Πₗ (_ : Fin 3), α × �
 @[simp, category API, AMS 5]
 theorem tripleProduct_const {α : Type*} (a : α) :
     tripleProduct (fun _ => a) (fun _ => a) = toLex (fun _ => (a, a)) := by
-  sorry
+  -- Agent proof
+  rfl
 
 @[simp, category API, AMS 5]
 theorem tripleProduct_vecConst_const {α : Type*} (a : α) :

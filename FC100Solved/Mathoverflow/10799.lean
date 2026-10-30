@@ -51,7 +51,13 @@ $\mu_{1/2}(S) = (1/2)^n$ for every $S \subseteq [n]$. -/
 @[category test, AMS 5]
 theorem μ_half_eq_uniform {n : ℕ} (S : Finset (Fin n)) :
     μ (1/2) S = (1/2 : ℝ) ^ n := by
-  sorry
+  -- Agent proof
+  unfold μ
+  have hS : #S ≤ n := by
+    simpa using card_le_card (subset_univ S)
+  have hhalf : 1 - (1 / 2 : ℝ) = 1 / 2 := by
+    norm_num
+  rw [hhalf, ← pow_add, Nat.add_sub_of_le hS]
 
 /--
 The $p$-biased measure of a family $\mathcal F \subseteq 2^{[n]}$,
@@ -243,7 +249,8 @@ theorem edgeBoundary_empty (n : ℕ) (p : ℝ) :
 @[category test, AMS 5]
 theorem boundaryCount_univ (n : ℕ) (S : Finset (Fin n)) :
     boundaryCount n Finset.univ S = 0 := by
-  sorry
+  -- Agent proof
+  simp [boundaryCount, Xor', filter_false]
 
 /-- The edge boundary is zero for the full family. -/
 @[category test, AMS 5]

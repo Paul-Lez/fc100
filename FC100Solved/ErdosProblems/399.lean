@@ -73,7 +73,82 @@ $(x,y)=1$ and $xy>1$.
 @[category research solved, AMS 11]
 theorem erdos_399.variants.cambie {n x y : ℕ} :
     x.Coprime y → 1 < x * y → n ! ≠ x ^ 4 + y ^ 4 := by
-  sorry
+  -- Agent proof
+  intro hcop hxy heq
+  have hxpos : 0 < x := by
+    by_contra hx
+    have hx0 : x = 0 := by omega
+    simp [hx0] at hxy
+  have hypos : 0 < y := by
+    by_contra hy
+    have hy0 : y = 0 := by omega
+    simp [hy0] at hxy
+  have hor : 2 ≤ x ∨ 2 ≤ y := by
+    by_contra h
+    push_neg at h
+    have hxone : x = 1 := by omega
+    have hyone : y = 1 := by omega
+    norm_num [hxone, hyone] at hxy
+  have hsum : 17 ≤ x ^ 4 + y ^ 4 := by
+    rcases hor with hx | hy
+    · have hxx : 4 ≤ x * x := Nat.mul_le_mul hx hx
+      have hxxxx : 4 * 4 ≤ (x * x) * (x * x) := Nat.mul_le_mul hxx hxx
+      have hxpow : 16 ≤ x ^ 4 := by
+        norm_num at hxxxx
+        convert hxxxx using 1 <;> ring
+      have hypow : 0 < y ^ 4 := pow_pos hypos _
+      omega
+    · have hyy : 4 ≤ y * y := Nat.mul_le_mul hy hy
+      have hyyyy : 4 * 4 ≤ (y * y) * (y * y) := Nat.mul_le_mul hyy hyy
+      have hypow : 16 ≤ y ^ 4 := by
+        norm_num at hyyyy
+        convert hyyyy using 1 <;> ring
+      have hxpow : 0 < x ^ 4 := pow_pos hxpos _
+      omega
+  by_cases hn : n < 4
+  · interval_cases n <;> norm_num at heq <;> omega
+  · have hn4 : 4 ≤ n := by omega
+    have hfac : 4 ! ∣ n ! := Nat.factorial_dvd_factorial hn4
+    have hdvd : 8 ∣ n ! := dvd_trans (by norm_num) hfac
+    have hpow (z : ℕ) :
+        (Even z ∧ ∃ q, z ^ 4 = 8 * q) ∨ (Odd z ∧ ∃ q, z ^ 4 = 8 * q + 1) := by
+      rcases Nat.even_or_odd z with hz | hz
+      · rcases hz with ⟨a, ha⟩
+        left
+        refine ⟨⟨a, ha⟩, 2 * a ^ 4, ?_⟩
+        rw [ha]
+        ring
+      · rcases hz with ⟨a, ha⟩
+        right
+        refine ⟨⟨a, ha⟩, 2 * a ^ 4 + 4 * a ^ 3 + 3 * a ^ 2 + a, ?_⟩
+        rw [ha]
+        ring
+    obtain ⟨t, ht⟩ := hdvd
+    rcases hpow x with hx | hx
+    · rcases hpow y with hy | hy
+      · rcases hx with ⟨hx, qx, hqx⟩
+        rcases hy with ⟨hy, qy, hqy⟩
+        rcases hx with ⟨a, ha⟩
+        rcases hy with ⟨b, hb⟩
+        have hdx : 2 ∣ x := by
+          refine ⟨a, ?_⟩
+          omega
+        have hdy : 2 ∣ y := by
+          refine ⟨b, ?_⟩
+          omega
+        have htwo : 2 ∣ Nat.gcd x y := Nat.dvd_gcd hdx hdy
+        rw [hcop] at htwo
+        norm_num at htwo
+      · rcases hx with ⟨_, qx, hqx⟩
+        rcases hy with ⟨_, qy, hqy⟩
+        omega
+    · rcases hpow y with hy | hy
+      · rcases hx with ⟨_, qx, hqx⟩
+        rcases hy with ⟨_, qy, hqy⟩
+        omega
+      · rcases hx with ⟨_, qx, hqx⟩
+        rcases hy with ⟨_, qy, hqy⟩
+        omega
 
 /--
 Erdős and Obláth observed that the Bertrand-style fact (first proved by Breusch [Br32]) that, if
